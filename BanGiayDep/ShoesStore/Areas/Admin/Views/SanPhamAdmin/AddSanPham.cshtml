@@ -1,0 +1,199 @@
+﻿@using ShoesStore.Areas.Admin.ViewModels;
+@model SanPhamViewModel
+@{
+    ViewData["Title"] = "Add San Pham";
+}
+
+<h1>Tạo chi tiết giày mới</h1>
+
+<form asp-action="AddSanPham" asp-controller="SanPhamAdmin" method="post" enctype="multipart/form-data">
+    <input asp-for="DongsanphamId" hidden />
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="DongsanphamName" class="control-label">Tên giày</label>
+                <input asp-for="DongsanphamName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="TypeName" class="control-label">Danh mục giày dép</label>
+                <input asp-for="TypeName" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="IdMau" class="control-label">Màu sắc</label>
+                <select asp-for="IdMau" id="colorChoice" class="form-control" style="width: 200px;" asp-items="ViewBag.ColorChoice">
+                </select>
+                <span asp-validation-for="IdMau" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label">Tình trạng</label>
+                <select asp-for="TrangThai" id="colorChoice" class="form-control" style="width: 200px;">
+                    @foreach (var value in Enum.GetValues(typeof(SanPhamViewModel.TrangThaiEnum)))
+                    {
+                        var enumMember = typeof(SanPhamViewModel.TrangThaiEnum).GetMember(value.ToString())[0];
+                        var vietnameseName = ((VietnameseNameAttribute)enumMember.GetCustomAttributes(typeof(VietnameseNameAttribute), false)[0]).Name;
+                        <option value="@value">@vietnameseName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <input type="hidden" id="selectedColor" name="SelectedColor" />
+
+    
+    <label class="control-label">Kích thước và số lượng</label>
+    <div class="form-inline">
+
+        @if (Model.tenSize != null)
+        {
+            for (int i = 0; i < Model.tenSize.Count(); i++)
+            {
+                <div class="row mb-2">
+                    <div class="col" style="text-align:center">
+                        <p asp-for="@Model.tenSize[i]" class="text-center" style="margin:auto">@Model.tenSize[i]</p>
+                    </div>
+                    <div class="col">
+                        <input asp-for="@Model.slton[i]" class="form-control" />
+                        <input asp-for="@Model.tenSize[i]" class="form-control" style="display:none" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="AvatarImage" class="control-label">Hình ảnh Avatar</label>
+                <div class="custom-file">
+                    <input type="file" asp-for="AvatarImage" class="custom-file-input" id="FLAvatarImage" onchange="previewImage(this)"/>
+                    <label class="custom-file-label" for="FLAvatarImage">Chọn tập tin</label>
+                    
+                </div>
+                <span asp-validation-for="AvatarImage" class="text-danger"></span>
+                <img id="AvatarImagePrv" src="#" width="150" height="150" style="border: 1px solid; margin: 20px auto; display: none;" />
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="TopImage" class="control-label">Hình ảnh trên cùng</label>
+                <div class="custom-file">
+                    <input type="file" asp-for="TopImage" class="custom-file-input" id="FLTopImage" onchange="previewImage1(this)" />
+                    <label class="custom-file-label" for="FLTopImage">Chọn tập tin</label>
+                    <span asp-validation-for="TopImage" class="text-danger"></span>
+                </div>
+                <img id="TopImagePrv" src="#" width="150" height="150" style="border: 1px solid; margin: 20px auto; display: none;" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="BottomImage" class="control-label">Hình ảnh dưới cùng</label>
+                <div class="custom-file">
+                    <input type="file" asp-for="BottomImage" class="custom-file-input" id="FLBottomImage" onchange="previewImage2(this)" />
+                    <label class="custom-file-label" for="FLBottomImage">Hình ảnh dưới cùng</label>
+                    <span asp-validation-for="BottomImage" class="text-danger"></span>
+                </div>
+                <img id="BottomImagePrv" src="#" width="150" height="150" style="border: 1px solid; margin: 20px auto; display: none;" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="VideoFile" class="control-label">Video</label>
+                <div class="custom-file">
+                    <input type="file" asp-for="VideoFile" class="custom-file-input" id="FLVideo" onchange="previewVideo(this)" />
+                    <label class="custom-file-label" for="FLVideo">Hình ảnh dưới cùng</label>
+                    <span asp-validation-for="VideoFile" class="text-danger"></span>
+                </div>
+                <!-- Video preview section -->
+                <video id="videoPreview" width="320" height="240" controls style="display: none;">
+                    <source src="#" type="video/webm">
+                    Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <a asp-action="SanPhamList" asp-controller="SanPhamAdmin" asp-route-madongsp="@Model.DongsanphamId" class="btn btn-secondary">Back To Shoes Detail List</a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Nộp</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    function previewImage(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#AvatarImagePrv').attr('src', e.target.result);
+            $('#AvatarImagePrv').css('display', 'block');
+        }
+        reader.readAsDataURL(input.files[0]);
+
+        var fileName = input.files[0].name;
+        $(input).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
+
+    function previewImage1(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#TopImagePrv').attr('src', e.target.result);
+            $('#TopImagePrv').css('display', 'block');
+        }
+        reader.readAsDataURL(input.files[0]);
+
+        var fileName = input.files[0].name;
+        $(input).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
+
+    function previewImage2(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#BottomImagePrv').attr('src', e.target.result);
+            $('#BottomImagePrv').css('display', 'block');
+        }
+        reader.readAsDataURL(input.files[0]);
+
+        var fileName = input.files[0].name;
+        $(input).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
+    function previewVideo(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var src = e.target.result;
+            var video = document.getElementById('videoPreview');
+            video.src = src;
+            video.style.display = 'block';  // Make the video visible
+            video.load();  // Load the video source
+            video.play();  // Optionally play the video
+        };
+        reader.readAsDataURL(file);
+
+        // Update the label text with the file name
+        var fileName = file.name;
+        $(input).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
+
+</script>
+    
+

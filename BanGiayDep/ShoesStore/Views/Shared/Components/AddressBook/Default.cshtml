@@ -1,0 +1,259 @@
+﻿@using ShoesStore.ViewModels
+@model SodiachiProfileViewModel
+
+<script>
+    $(document).ready(function () {
+        $('#selectTinh').change(function () {
+            var maTinhView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetDistinctsByProvince',
+                type: 'GET',
+                data: {
+                    provinceId: maTinhView,
+                },
+                success: function (response) {
+                    var selectQuan = $('#selectQuan');
+                    var selectWard = $('#selectPhuong');
+
+                    selectQuan.empty();
+                    selectQuan.append('<option value="">Chọn Quận</option>');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Chọn Phường/Xã</option>');
+                    $.each(response, function (index, item) {
+                        selectQuan.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $('#selectQuan').change(function () {
+            var maQuanView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetWardByDistrict',
+                type: 'GET',
+                data: {
+                    districtId: maQuanView,
+                },
+                success: function (response) {
+                    var selectWard = $('#selectPhuong');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Chọn Phường/Xã</option>');
+                    $.each(response, function (index, item) {
+                        selectWard.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $('#openAddBtn').click(function () {
+            $('#hotenSpanCreate').text("");
+            $('#sdtSpanCreate').text("");
+            $('#addressSpanCreate').text("");
+            $('#tinhSpanCreate').text("");
+            $('#quanSpanCreate').text("");
+            $('#phuongSpanCreate').text("");
+        });
+
+        $('#addButton').click(function () {
+
+            var check = true;
+            var maProvinceView = $('#selectTinh').val();
+            if (maProvinceView == "") {
+                $('#tinhSpanCreate').text("Vui lòng chọn tỉnh");
+                check = false;
+            }
+
+            var maDistrictView = $('#selectQuan').val();
+            if (maDistrictView == "") {
+                $('#quanSpanCreate').text("Vui lòng chọn quận");
+                check = false;
+            }
+
+            var maWardView = $('#selectPhuong').val();
+            if (maWardView == "") {
+                $('#phuongSpanCreate').text("Vui lòng chọn phường");
+                check = false;
+            }
+
+            var diachiView = $('#addressInput').val();
+            if (diachiView == "") {
+                $('#addressSpanCreate').text("Vui lòng nhập địa chỉ người nhận");
+                check = false;
+            }
+
+            var tennguoinhanView = $('#hotenInput').val();
+            if (tennguoinhanView == "") {
+                $('#hotenSpanCreate').text("Vui lòng nhập tên người nhận");
+                check = false;
+            }
+
+            var sdtnguoinhanView = $('#sdtInput').val();
+            if (sdtnguoinhanView == "") {
+                $('#sdtSpanCreate').text("Vui lòng nhập số điện thoại người nhận");
+                check = false;
+            }
+
+            if (check) {
+                $.ajax({
+                    url: '/Account/AddAddress',
+                    type: 'GET',
+                    data: {
+                        province: maProvinceView,
+                        district: maDistrictView,
+                        ward: maWardView,
+                        address: diachiView,
+                        tennguoinhan: tennguoinhanView,
+                        sdtnguoinhan: sdtnguoinhanView
+                    },
+                    success: function (response) {
+                        $('#partialAddress').html(response);
+                        $('#exampleModal').modal('hide');
+                        $('#selectTinh').val("");
+
+                        var selectQuan = $('#selectQuan');
+                        var selectWard = $('#selectPhuong');
+
+                        selectQuan.empty();
+                        selectQuan.append('<option value="">Chọn Quận</option>');
+
+                        selectWard.empty();
+                        selectWard.append('<option value="">Chọn Phường/Xã</option>');
+
+                        var currentName = '@Model.currentKhName';
+                        var currentSdt = '@Model.currentPhone';
+                        $('#hotenInput').val(currentName);
+                        $('#sdtInput').val(currentSdt);
+                    }
+                });
+            }
+        });
+
+        function closeModalPopup() {
+            $('#exampleModal').removeClass('show');
+            $('#exampleModal').attr('aria-hidden', 'true');
+            $('#exampleModal').removeAttr('aria-modal');
+            $('#exampleModal').css({
+                'display': 'none',
+                'padding-right': ''
+            });
+            $('.modal-backdrop').remove();
+            console.log("Đóng cửa sổ bật lên");
+            $('body').removeClass('modal-open');
+            $('body').css({
+                'padding-right': ''
+            });
+
+
+        }
+       });
+</script>
+
+<div class="row" style="margin-bottom:10px">
+    <div class="col-md-6">
+        <h2>Sổ địa chỉ của tôi</h2>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+            <button id="openAddBtn" type="button" class="genric-btn primary radius" data-toggle="modal" data-target="#exampleModal">
+                Thêm
+            </button>
+    </div>
+</div>
+<div id="partialAddress">
+    <partial name="AddressBookPartialView" model="Model.sdc" />
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tạo sổ ghi chép địa chỉ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <input placeholder="Name" class="form-control" value="@Model.currentKhName" id="hotenInput" />
+                        <span class="text-danger" id="hotenSpanCreate"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <input placeholder="Phone number" class="form-control" value="@Model.currentPhone" id="sdtInput" />
+                        <span class="text-danger" id="sdtSpanCreate"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <input placeholder="Address" class="form-control" id="addressInput" />
+                        <span class="text-danger" id="addressSpanCreate"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectTinh">
+                            <option value="">Chọn Tỉnh</option>
+
+                            @foreach (SelectListItem item in ViewBag.TinhSelect)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span class="text-danger" id="tinhSpanCreate"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectQuan">
+                            <option value="">Chọn quận</option>
+                            @if (ViewBag.QuanSelect != null)
+                            {
+                                foreach (SelectListItem item in ViewBag.QuanSelect)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" id="quanSpanCreate"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectPhuong">
+                            <option value="">Chọn Phường/Xã</option>
+                            @if (ViewBag.PhuongSelect != null)
+                            {
+                                foreach (SelectListItem item in ViewBag.PhuongSelect)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <span class="text-danger" id="phuongSpanCreate"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="genric-btn default circle" data-dismiss="modal">Đóng</button>
+                <button type="button" class="genric-btn primary circle" id="addButton">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #selectTinh, #selectQuan, #selectPhuong {
+        display: block !important;
+        color: #777777;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+
+    .nice-select {
+        display: none !important;
+    }
+</style>

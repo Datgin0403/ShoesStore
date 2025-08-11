@@ -1,0 +1,55 @@
+﻿@model ShoesStore.Areas.Admin.ViewModels.BlogViewModel
+
+@{
+    ViewData["Title"] = "Add Blog";
+}
+
+<h2>Thêm Blog</h2>
+
+<form asp-action="AddBlog" asp-controller="BlogAdmin" method="post" enctype="multipart/form-data">
+
+  
+    <div class="form-group">
+        <label asp-for="Theloai">Thể loại Blog:</label>
+        <input asp-for="Theloai" class="form-control" />
+        <span asp-validation-for="Theloai" class="text-danger"></span> <!-- Display validation error message -->
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BlogImage">Hình đại diện</label>
+        <div class="custom-file">
+            <input type="file" asp-for="BlogImage" class="custom-file-input" id="FLAvatarImage" onchange="previewImage(this)" />
+            <label class="custom-file-label" for="FLBottomImage">Chọn tập tin</label>
+            <span asp-validation-for="BlogImage" class="text-danger"></span>
+
+        </div>
+        <img id="AvatarImagePrv" src="#" width="150" height="150" style="border: 1px solid; margin: 20px auto; display: none;" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Noidung">Nội dung:</label>
+        <textarea asp-for="Noidung" class="form-control"></textarea>
+        <span asp-validation-for="Noidung" class="text-danger"></span> <!-- Display validation error message -->
+    </div>
+    <div class="form-group">      
+        <input asp-for="Manv" class="form-control" hidden value="123"/>
+    </div>
+
+    <!-- Add other necessary form fields here -->
+    <button type="submit" class="btn btn-primary">Thêm Blog</button>
+    <a asp-action="ListBlogs" class="btn btn-secondary">Quay lại danh sách Blog</a>
+</form>
+
+
+<script type="text/javascript">
+    function previewImage(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#AvatarImagePrv').attr('src', e.target.result);
+            $('#AvatarImagePrv').css('display', 'block');
+        }
+        reader.readAsDataURL(input.files[0]);
+
+        var fileName = input.files[0].name;
+        $(input).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
+</script>

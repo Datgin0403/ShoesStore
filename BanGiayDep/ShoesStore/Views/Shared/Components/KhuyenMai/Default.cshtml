@@ -1,0 +1,16 @@
+﻿@model List<Khuyenmai>
+
+<li class="nav-item submenu dropdown">
+	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	   aria-expanded="false">Khuyến mại</a>
+	<ul class="dropdown-menu">
+		<li class="nav-item"><a class="nav-link" asp-action="SaleIndex" asp-controller="KhuyenMai" asp-route-phantramgiam="-1">Tât cả</a></li>
+
+		@foreach (Khuyenmai km in Model)
+		{
+			<li class="nav-item">
+				<a class="nav-link" asp-action="SaleIndex" asp-controller="KhuyenMai" asp-route-phantramgiam="@km.Phantramgiam" style="font-size:14px">
+				@km.Phantramgiam%</a></li>
+		}
+	</ul>
+</li>

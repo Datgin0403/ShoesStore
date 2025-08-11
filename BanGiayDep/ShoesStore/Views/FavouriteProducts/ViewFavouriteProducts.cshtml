@@ -1,0 +1,82 @@
+﻿@using ShoesStore.ViewModels
+@model List<FavouriteProductsItem>
+
+<style>
+    .product-images img {
+        width: 80%;
+    }
+
+        .product-images img:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+    .btndangerA:hover{
+        color: #F44A40 !important;
+    }
+</style>
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1 style="font-size:32px">Sản phẩm yêu thích</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Yêu thích</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
+            }
+            <section class="lattest-product-area pb-40 category-list">
+                <h1>Sản phẩm bạn thích</h1>
+                <div class="row">
+                    @foreach (FavouriteProductsItem favPro in Model)
+                    {
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-product" onmouseenter="showProductDetails(this)" onmouseleave="showProductDetails(this)">
+                                <a class="product-images" asp-action="HienThiSanpham" asp-controller="SanPham" asp-route-masp="@favPro.Id" asp-route-madongsanpham="@favPro.Madongsp" class="social-info">
+                                    <img class="img-fluid" src="~/img/@favPro.Madongsp/@favPro.Hinhanh" alt="">
+                                </a>
+                                <div class="product-details">
+                                    <h5>@favPro.Tensp</h5>
+                                </div>
+                                <div class="price">
+                                    @if (favPro.Phantramgiam != null && favPro.Phantramgiam != 0)
+                                    {
+                                        decimal? priceSale = favPro.Gia - (favPro.Gia * favPro.Phantramgiam / 100);
+                                        <h5>
+                                            @(priceSale.Value.ToString("#,##0"))₫ &nbsp;<span style="text-decoration:line-through;color:#cccccc">
+                                                @favPro.Gia.ToString("#,##0")₫
+                                            </span>
+                                        </h5>
+                                        <h5 style="color:green;">@favPro.Phantramgiam% off</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>@favPro.Gia.ToString("#,##0")₫</h5>
+                                    }
+                                </div>
+                                <a class="genric-btn danger radius btndangerA" style="color:white"
+                                   onclick="if (confirm('Xác nhận xoá khỏi sản phẩm yêu thích?') == true) {location.href='@Url.Action("RemoveFavouriteProduct", "FavouriteProducts", new { id = @favPro.Id })'}">
+                                    Xóa bỏ
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

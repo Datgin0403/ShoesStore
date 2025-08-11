@@ -1,0 +1,56 @@
+﻿@model ShoesStore.Models.Nhanvien
+
+<div class="text-center">
+    <h2 class="display-4">Chỉnh sửa nhân viên</h2>
+</div>
+
+<div class="col-lg-6">
+    <div class="login_form_inner">
+        <form asp-action="EditEmployee" asp-controller="StaffAdmin" class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+            <input type="hidden" asp-for="@Model.Manv" />
+            <input asp-for="@Model.EmailNavigation.Matkhau" hidden />
+            <input  asp-for="@Model.EmailNavigation.Email" hidden/>
+            <input asp-for="@Model.EmailNavigation.Loaitk" hidden/>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Tennv">Tên nhân viên <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Tennv" type="text" class="form-control" placeholder="Họ và Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên tài khoản'" value="@Model.Tennv">
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Tennv)</span>
+            </div>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Email">Email <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" value="@Model.Email">
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Email)</span>
+            </div>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Diachi">Địa chỉ : </label>
+                <input asp-for="@Model.Diachi" type="text" class="form-control" placeholder="Địa chỉ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'" value="@Model.Diachi">
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Sdt">Số điện thoại <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Sdt" type="text" class="form-control" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required value="@Model.Sdt">
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Sdt)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Gioitinh">Giới tính <span style="color:red">*</span> : </label>
+                <select asp-for="@Model.Gioitinh" class="form-control" required>
+                    <option value="">Chọn giới tính</option>
+                    <option value="true" selected="@Model.Gioitinh">Nam</option>
+                    <option value="false" selected="@(!Model.Gioitinh)">Nữ</option>
+                </select>
+                <span class="text-danger" style="text-align:left;">@Html.ValidationMessageFor(model => model.Gioitinh)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Ngaysinh">Ngày sinh <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Ngaysinh" type="date" class="form-control" placeholder="Ngày sinh" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'" required value="@Model.Ngaysinh">
+                <span class="text-danger" style="text-align:left;">@Html.ValidationMessageFor(model => model.Ngaysinh)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <button type="submit" value="submit" class="primary-btn">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+</div>

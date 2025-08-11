@@ -1,0 +1,25 @@
+﻿@model ShoesStore.Models.Size
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Size", FormMethod.Post, new { }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-center">Chỉnh sửa kích thước</h2>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label asp-for="Tensize">Tên kích thước</label>
+                        <input type="text" asp-for="Tensize" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <span asp-validation-for="Tensize" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Cập nhật</button>
+                    <a href="@Url.Action("Index", "Size")" class="btn btn-light">Hủy bỏ</a>
+                </form>
+            </div>
+        </div>
+    </div>
+}

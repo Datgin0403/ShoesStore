@@ -1,0 +1,72 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .custom-card {
+        height: 200px; 
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="row">
+       @*  <div class="col-md-2 p-3 mx-2">
+            <div class="card bg-gradient-danger card-img-holder text-white custom-card w-100">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">
+                        Total Sales (Current Month) <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">@(ViewBag.TotalRevenue.ToString("#,##0"))₫</h2>
+                </div>
+            </div>
+        </div> *@
+        <div class="col-md-2 p-1 mx-1">
+            <div class="card bg-gradient-info card-img-holder text-white custom-card w-100">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">
+                        Tổng số đơn hàng trong tháng <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">@ViewBag.TotalProductsSold</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 p-1 mx-1">
+            <div class="card bg-gradient-success card-img-holder text-white custom-card w-100">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">
+                        Tổng số đơn hàng trong tháng <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">@ViewBag.TotalOrders</h2>
+                </div>
+            </div>
+        </div>
+        @if (HttpContextAccessor.HttpContext.Session.GetString("Loaitk") == "2")
+        {
+            <div class="col-md-2 p-1 mx-1">
+                <div class="card bg-gradient-primary card-img-holder text-white custom-card w-100">
+                    <div class="card-body">
+                        <h4 class="font-weight-normal mb-3">
+                            Tổng số nhân viên <i class="mdi mdi-account mdi-24px float-right"></i>
+                        </h4>
+                        <h2 class="mb-5">@ViewBag.TotalEmployees</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 p-1 mx-1">
+                <div class="card bg-gradient-warning card-img-holder text-white custom-card w-100">
+                    <div class="card-body">
+                        <h4 class="font-weight-normal mb-3">
+                            Tổng số khách hàng <i class="mdi mdi-account mdi-24px float-right"></i>
+                        </h4>
+                        <h2 class="mb-5">@ViewBag.TotalCustomers</h2>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@await Component.InvokeAsync("SaleChart")
+

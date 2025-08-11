@@ -1,0 +1,75 @@
+﻿@model List<Blog>
+
+<section class="category-area">
+	<h2 class="text-center">SHOES BLOGS</h2>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 col-md-12">
+				<div class="row">
+					<div class="col-lg-8 col-md-8">
+						<a asp-action="Detail" asp-controller="Blog" asp-route-id="@Model.ElementAt(0).Mablog">
+						<div class="single-deal">
+							<div class="overlay"></div>
+							<img class="img-fluid w-100" src="~/img/blog/@Model.ElementAt(0).Anhdaidien" alt="" >
+							@*style="width:458px; height:184px"*@
+								<div class="deal-details">
+									<h6 class="deal-title">Bộ Sưu Tập Giày Chạy Bộ</h6>
+								</div>
+						</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-4">
+						<a asp-action="Detail" asp-controller="Blog" asp-route-id="@Model.ElementAt(1).Mablog">
+						<div class="single-deal">
+							<div class="overlay"></div>
+								<img class="img-fluid w-100" src="~/img/blog/@Model.ElementAt(1).Anhdaidien" alt="">
+							@*style="width:262px; height:225px"*@
+						
+								<div class="deal-details" >
+									<h6 class="deal-title">Giày thể thao</h6>
+								</div>
+
+						</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-4">
+						<a asp-action="Detail" asp-controller="Blog" asp-route-id="@Model.ElementAt(2).Mablog">
+						<div class="single-deal">
+							<div class="overlay"></div>
+							<img class="img-fluid w-100" src="~/img/blog/@Model.ElementAt(2).Anhdaidien" alt="" >
+							@*style="width:262px; height:225px"*@
+								<div class="deal-details">
+									<h6 class="deal-title">Sản phẩm dành cho cặp đôi</h6>
+								</div>
+						</div>
+						</a>
+					</div>
+					<div class="col-lg-8 col-md-8">
+						<a asp-action="Detail" asp-controller="Blog" asp-route-id="@Model.ElementAt(3).Mablog">
+						<div class="single-deal">
+							<div class="overlay"></div>
+							<img class="img-fluid w-100" src="~/img/blog/@Model.ElementAt(3).Anhdaidien" alt="" >
+							@*style="width:458px; height:184px"*@
+								<div class="deal-details">
+									<h6 class="deal-title">Giày thể thao</h6>
+								</div>
+						</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<a asp-action="Detail" asp-controller="Blog" asp-route-id="@Model.ElementAt(4).Mablog">
+				<div class="single-deal">
+					<div class="overlay"></div>
+					<img class="img-fluid w-100" src="~/img/blog/@Model.ElementAt(4).Anhdaidien" alt="" >
+					@*style="width:360px; height:425px"*@
+						<div class="deal-details">
+							<h6 class="deal-title">Giày thể thao</h6>
+						</div>
+				</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>

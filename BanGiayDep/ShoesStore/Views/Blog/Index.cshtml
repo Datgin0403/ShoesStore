@@ -1,0 +1,46 @@
+﻿@model List<ShoesStore.Models.Blog>
+
+@{
+    ViewData["Title"] = "Blog List";
+}
+
+<!-- End Header Area -->
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Trang blog</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Blog</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Blog Categorie Area =================-->
+
+
+<div class="container">
+    <h2 class="text-center">Blog Danh sách</h2>
+
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+            <div class="col-md-8">
+                <div class="card mb-4 shadow-sm">
+                    <img src="@Url.Content($"~/img/blog/{blog.Anhdaidien}")" class="bd-placeholder-img card-img-top" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class="card-body">
+                        <h5 class="card-title">@blog.Theloai</h5>
+                        <p class="card-text">@Html.Raw(blog.Noidung.Substring(0, Math.Min(blog.Noidung.Length, 100)))...</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                                <a href="@Url.Action("Detail", "Blog", new { id = blog.Mablog })" class="btn btn-sm btn-outline-secondary">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

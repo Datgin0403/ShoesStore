@@ -1,0 +1,25 @@
+﻿@model ShoesStore.Models.Loai
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Loai", FormMethod.Post, new { }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-center">Chỉnh sửa danh mục giày</h2>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label asp-for="Tenloai">Tên danh mục giày</label>
+                        <input type="text" asp-for="Tenloai" class="form-control" id="exampleInputName1" placeholder="Tên">
+                        <span asp-validation-for="Tenloai" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Cập nhật</button>
+                    <a href="@Url.Action("Index", "Loai")" class="btn btn-light">Hủy bỏ</a>
+                </form>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,82 @@
+﻿@model ShoesStore.Models.Phieumua
+<link rel="stylesheet" href="~/css/tracking.css" />
+
+<div class="order-details-container" style="margin-bottom:60px;">
+    <h1 class="text-center mr-1">Chi tiết đơn hàng</h1>
+    <p>Trạng thái: @Html.Partial("_OrderStatus", @Model.Tinhtrang)</p>
+    <div>
+        <h4>Mã đơn hàng: @Model.Mapm</h4>
+        <div class="d-flex justify-content-between">
+            <div class="order-details-grid" style="text-align:left; margin-top: 20px;">
+                <div>Ngày đặt:</div>
+                <div>@Model.Ngaydat.ToString("dd/MM/yyyy")</div>
+            </div>
+            <div class="total-amount">
+                Tổng số tiền: @Model.Tongtien?.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))
+            </div>
+        </div>
+
+        <div class="order-details-grid" style="text-align:left; margin-top: 20px;">
+            <div>Tên người nhận:</div><div>@Model.Tennguoinhan</div>
+            <div>Số điện thoại:</div><div>@Model.Sdtnguoinhan</div>
+            <div>Email:</div><div>@Model.Emailnguoinhan</div>
+            <div>Địa chỉ người nhận:</div><div>@Model.Diachinguoinhan</div>
+            <div>Ghi chú:</div><div>@Model.Ghichu</div>
+        </div>
+
+        <h3>Đặt hàng các mặt hàng</h3>
+        <table class="table table-striped">
+            <thead class="text-center">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Kích cỡ</th>
+                    <th>Màu sắc</th>
+                    <th>Đơn giá</th>
+                    <th>Tổng giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Chitietphieumuas)
+                {
+                    var totalPrice = item.Soluong * item.Dongia;
+                    <tr class="text-center">
+                        <td>@item.MaspsizeNavigation.MaspNavigation.MadongsanphamNavigation.Tendongsp</td>
+                        <td>
+                            <img src="~/img/@item.MaspsizeNavigation.MaspNavigation.Madongsanpham/@item.MaspsizeNavigation.MaspNavigation.Anhdaidien"
+                                 style="width:100px;height:100px;border-radius:3px;" />
+                        </td>
+                        <td>@item.Soluong</td>
+                        <td>@item.MaspsizeNavigation.MasizeNavigation.Tensize</td>
+                        <td>@item.MaspsizeNavigation.MaspNavigation.MamauNavigation.Tenmau</td>
+                        <td>@item.Dongia.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                        <td>@totalPrice.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .order-details-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px 20px;
+    }
+
+        .order-details-grid div {
+            padding: 5px 0;
+        }
+
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .total-amount {
+        display: flex;
+        align-items: center;
+    }
+</style>

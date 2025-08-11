@@ -1,0 +1,146 @@
+﻿@using X.PagedList
+@using ShoesStore.ViewModels
+@model CommentViewModel
+
+
+@*Average*@
+<div class="row total_rate">
+	<div class="col-6">
+		<div class="box_total">
+			<h5>Tổng thể</h5>
+			<h4>@(Model.overallStar.ToString("#.#"))</h4>
+			<h6>(@(Model.totalReview > 0 && Model.totalReview< 10 ? "0" + Model.totalReview : Model.totalReview) Reviews)</h6>
+		</div>
+	</div>
+	<div class="col-6">
+		<div class="rating_list">
+			<h3>Dựa trên @Model.totalReview Đánh giá</h3>
+			<ul class="list">
+				<li>
+					<a href="#">
+						 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> @(Model.fiveStar)
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star" style="color:#777777"></i> @(Model.fourStar)
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i> @(Model.threeStar)
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i> @(Model.twoStar)
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-star"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i><i class="fa fa-star" style="color:#777777"></i></i> @(Model.oneStar)
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+@*lIST*@
+<div class="review_list">
+	@foreach (var item in Model.blPage)
+	{
+
+		<div class="review_item">
+			<div class="media">
+				<div class="d-flex">
+					<img src="img/product/review-1.png" alt="">
+				</div>
+				<div class="media-body">
+					<h4>
+						@item.MakhNavigation.Tenkh
+						<span style="font-size:12px">
+							@item.Ngaybl
+						</span>
+					</h4>
+					@for (int i = 0; i < item.Rating; ++i)
+					{
+						<i class="fa fa-star yellow"></i>
+					}
+					@for (int j = item.Rating; j < 5; j++)
+					{
+						<i class="fa fa-star" style="color:#777777"></i>
+					}
+				</div>
+			</div>
+			<p>
+				@item.Noidungbl
+			</p>
+		</div>
+	}
+</div>
+
+<nav>
+	<ul class="pagination justify-content-center text-center">
+		<!-- First Page -->
+		@if (Model.blPage.PageNumber > 1)
+		{
+			<li class="page-item">
+				<a class="page-link" value="1">First</a>
+			</li>
+		}
+
+		<!-- Page Numbers -->
+		@for (var i = Math.Max(1, Model.blPage.PageNumber - 2); i <= Math.Min(Model.blPage.PageNumber + 2, Model.blPage.PageCount); i++)
+		{
+			<li class="page-item @(Model.blPage.PageNumber == i ? "active" : "")">
+				<a class="page-link" value="@i">@i</a>
+			</li>
+		}
+
+		<!-- Last Page -->
+		@if (Model.blPage.PageNumber < Model.blPage.PageCount)
+		{
+			<li class="page-item">
+				<a class="page-link" value="@Model.blPage.PageCount">Last</a>
+			</li>
+		}
+	</ul>
+</nav>
+<style>
+	.page-item {
+		width: auto;
+	}
+
+	.page-link {
+		width: 50px !important; /* Changing width to auto to accommodate varying text length */
+		height: 50px;
+		transition: background-color 0.3s; /* Adding transition for smoother color change */
+	}
+
+		.page-link:hover {
+			background-color: #F6AC2D; /* Changing background color to orange on hover */
+		}
+
+	.page-item.active .page-link {
+		background-color: #EE9804; /* Applying bootstrap theme color when active */
+		border-color: #EE9804; /* Changing border color for consistency */
+	}
+</style>
+
+<script>
+	$(document).ready(function () {
+		$('.page-link').click(function () {
+			var pageView = $(this).attr('value');
+			$.ajax({
+				url: '/SanPham/FilterCommentPage',
+				type: 'GET',
+				data: {
+					page: pageView,
+				},
+				success: function (response) {
+					$('#partialComment').html(response);
+				}
+			});
+		});
+	});
+</script>

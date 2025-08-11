@@ -1,0 +1,210 @@
+﻿<style>
+    #selectTinhUpdate, #selectQuanUpdate, #selectPhuongUpdate {
+        display: block !important;
+        color: #777777;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+</style>
+
+<div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật sổ địa chỉ</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <input hidden id="masdcViewUpdate" />
+                        <input placeholder="Name" class="form-control" id="hotenInputUpdate" />
+                        <span class="text-danger" id="hotenSpan"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <input placeholder="Phone number" class="form-control" id="sdtInputUpdate" />
+                        <span class="text-danger" id="sdtSpan"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <input placeholder="Address" class="form-control" id="addressInputUpdate" name="address" />
+                        <span class="text-danger" id="addressSpan"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectTinhUpdate">
+
+                            <option value="">Chọn Tỉnh</option>
+
+                        </select>
+                        <span class="text-danger" id="tinhSpan"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectQuanUpdate">
+
+                            <option value="">Chọn Quận</option>
+
+
+
+                        </select>
+                        <span class="text-danger" id="quanSpan"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="selectPhuongUpdate">
+
+                            <option value="">Chọn Phường/Xã</option>
+
+
+
+                        </select>
+                        <span class="text-danger" id="phuongSpan"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="genric-btn default radius" data-dismiss="modal">Đóng</button>
+                <button type="button" class="genric-btn primary radius" id="updateFinalSend">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#updateFinalSend').click(function () {
+            var check = true;
+            var masdcView = $('#masdcViewUpdate').val();
+            var hotenView = $('#hotenInputUpdate').val();
+            if (hotenView == "") {
+                $('#hotenSpan').text("Please enter receiver name");
+                check = false;
+            }
+
+            var sdtView = $('#sdtInputUpdate').val();
+            if (sdtView == "") {
+                $('#sdtSpan').text("Please enter receiver phone number");
+                check = false;
+            }
+
+            var addressView = $('#addressInputUpdate').val();
+            if (addressView == "") {
+                $('#addressSpan').text("Please enter receiver address");
+                check = false;
+            }
+
+            var selectTinhView = $('#selectTinhUpdate').val();
+            if (selectTinhView == "") {
+                $('#tinhSpan').text("Please choose province");
+                check = false;
+            }
+
+            var selectQuanView = $('#selectQuanUpdate').val();
+            if (selectQuanView == "") {
+                $('#quanSpan').text("Please choose district");
+                check = false;
+            }
+
+            var selectPhuongView = $('#selectPhuongUpdate').val();
+            if (selectPhuongView == "") {
+                $('#phuongSpan').text("Please choose ward");
+                check = false;
+            }
+
+            if (check) {
+                $.ajax({
+                    url: '/PhieuMua/UpdateAddressFinal',
+                    type: 'GET',
+                    data: {
+                        masdc: masdcView,
+                        hoten: hotenView,
+                        sdt: sdtView,
+                        diachi: addressView,
+                        matinh: selectTinhView,
+                        maquan: selectQuanView,
+                        maphuong: selectPhuongView
+                    },
+                    success: function (response) {
+                        $('#partialAddress').html(response);
+                        closeModalPopup();
+                    }
+                });
+            }
+        });
+
+        function closeModalPopup() {
+            $('#exampleModalUpdate').removeClass('show');
+            $('#exampleModalUpdate').attr('aria-hidden', 'true');
+            $('#exampleModalUpdate').removeAttr('aria-modal');
+            $('#exampleModalUpdate').css({
+                'display': 'none',
+                'padding-right': ''
+            });
+            $('.modal-backdrop').remove();
+            console.log("Get to close modal popup");
+            $('body').removeClass('modal-open');
+            $('body').css({
+                'padding-right': ''
+            });
+
+
+        }
+
+        $('#selectTinhUpdate').change(function () {
+            var maTinhView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetDistinctsByProvince',
+                type: 'GET',
+                data: {
+                    provinceId: maTinhView,
+                },
+                success: function (response) {
+                    var selectQuan = $('#selectQuanUpdate');
+                    var selectWard = $('#selectPhuongUpdate');
+
+                    selectQuan.empty();
+                    selectQuan.append('<option value="">Choose District</option>');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Choose Ward/Commune</option>');
+                    $.each(response, function (index, item) {
+                        selectQuan.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $('#selectQuanUpdate').change(function () {
+            var maQuanView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetWardByDistrict',
+                type: 'GET',
+                data: {
+                    districtId: maQuanView,
+                },
+                success: function (response) {
+                    var selectWard = $('#selectPhuongUpdate');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Choose Ward/Commune</option>');
+                    $.each(response, function (index, item) {
+                        selectWard.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+
+    });
+</script>

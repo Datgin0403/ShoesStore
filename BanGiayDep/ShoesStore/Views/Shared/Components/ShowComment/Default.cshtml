@@ -1,0 +1,147 @@
+﻿@using X.PagedList
+@using ShoesStore.ViewModels
+@model CommentViewModel
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+	ViewBag.Title = "Show Comment";
+}
+
+<style>
+	.fa.fa-star.yellow {
+		color: yellow;
+	}
+</style>
+<script type="text/javascript">
+
+	function CRateOut(rating) {
+		for (var i = 1; i <= rating; i++) {
+			$("#span" + i).attr('class', 'fa fa-star');
+		}
+	}
+	function CRateOver(rating) {
+		for (var i = 1; i <= rating; i++) {
+			$("#span" + i).attr('class', 'fa fa-star yellow');
+		}
+	}
+	function CRateClick(rating) {
+		$("#lblRating").val(rating); // Cập nhật giá trị của trường ẩn "lblRating"
+		for (var i = 1; i <= rating; i++) {
+			$("#span" + i).attr('class', 'fa fa-star yellow'); // Đánh dấu các sao đã chọn với màu vàng
+		}
+		for (var i = rating + 1; i <= 5; i++) {
+			$("#span" + i).attr('class', 'fa fa-star'); // Đặt lại các sao còn lại về màu mặc định
+		}
+	}
+
+	function CRateSelected() {
+		var rating = parseInt($("#lblRating").val()); // Lấy giá trị số sao từ trường ẩn "lblRating"
+		for (var i = 1; i <= rating; i++) {
+			$("#span" + i).attr('class', 'fa fa-star yellow'); // Đánh dấu các sao đã chọn với màu vàng
+		}
+		for (var i = rating + 1; i <= 5; i++) {
+			$("#span" + i).attr('class', 'fa fa-star'); // Đặt lại các sao còn lại về màu mặc định
+		}
+	}
+
+
+
+	function verifyCommentLength() {
+		var rating = $("#lblRating").val();
+		var check = true;
+		if (rating == "0") {
+			document.getElementById('checkRating').innerText = "Please rating";
+			document.getElementById('checkRating').removeAttribute("hidden");
+			check = false;
+		}
+		else{
+			document.getElementById("checkRating").setAttribute("hidden", "hidden");
+		}
+
+		var comment = document.getElementById("txtSanPhamComment").value;
+		if (comment.length > 300) {
+			document.getElementById("checkLengthComment").innerText = "Comment length cannot exceed 300 characters.";
+			document.getElementById("checkLengthComment").removeAttribute("hidden");
+			check = false;
+		}
+		else if (comment.length <= 0) {
+			document.getElementById("checkLengthComment").innerText = "Please enter comment";
+			document.getElementById("checkLengthComment").removeAttribute("hidden");
+			check = false;
+		}
+		else {
+			document.getElementById("checkLengthComment").setAttribute("hidden", "hidden");
+		
+		}
+		return check;
+	}
+	$(document).ready(function () {
+		$('#btnSubmitComment').click(function () {
+			console.log("In click");
+			if (verifyCommentLength()) {
+				var ratingView = $("#lblRating").val();
+				var comment = document.getElementById("txtSanPhamComment").value;
+				$.ajax({
+					url: '/SanPham/AddComment',
+					type: 'GET',
+					data: {
+						rating: ratingView,
+						SanPhamComment: comment
+					},
+					success: function (response) {
+						$('#partialComment').html(response);
+					}
+				});
+				$("#lblRating").val("0");
+				$('#txtSanPhamComment').val("");
+				for (var i = 1; i <= 5; i++) {
+					$("#span" + i).attr('class', 'fa fa-star'); // Đặt lại các sao còn lại về màu mặc định
+				}
+			}
+		});
+	});
+	
+</script>
+
+<div class="col-lg-6">
+	<div id="partialComment">
+	<partial name="PartialShowComment" model="Model"/>
+	</div>
+</div>
+
+<div class="col-lg-6">
+	<div class="review_box">
+		<h4>Add a Review</h4>
+		@if (HttpContextAccessor.HttpContext.Session.GetString("Email") == null)
+		{
+			<p>Vui lòng <a asp-action="Login" asp-controller="Account" asp-route-backToPage="comment">đăng nhập</a> để thêm bình luận và đánh giá.</p>
+		}
+		else
+		{
+
+			<p>Đánh giá của bạn:</p>
+			<div onmouseout="CRateSelected()" class="d-inline">
+				<i id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onclick="CRateClick(1)" class="fa fa-star"></i>
+				<i id="span2" onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onclick="CRateClick(2)" class="fa fa-star"></i>
+				<i id="span3" onmouseout="CRateOut(3)" onmouseover="CRateOver(3)" onclick="CRateClick(3)" class="fa fa-star"></i>
+				<i id="span4" onmouseout="CRateOut(4)" onmouseover="CRateOver(4)" onclick="CRateClick(4)" class="fa fa-star"></i>
+				<i id="span5" onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onclick="CRateClick(5)" class="fa fa-star"></i>
+			</div>
+
+			<span class="text-danger" id="checkRating" hidden></span>
+
+		<div class="form-group mt-2">
+			<textarea class="form-control" name="SanPhamComment" id="txtSanPhamComment" rows="4" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
+			<span class="text-danger" id="checkLengthComment" hidden></span>
+		</div>
+
+			<div class="col-md-12 text-right">
+				<button class="primary-btn" id="btnSubmitComment">Đăng bình luận</button>
+			</div>
+			<div>
+				<input type="hidden" id="lblRating" name="rating" value="0" />
+			</div>
+
+		}
+
+	</div>
+</div>

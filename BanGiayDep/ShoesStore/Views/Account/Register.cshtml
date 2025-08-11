@@ -1,0 +1,78 @@
+﻿@model ShoesStore.ViewModels.RegisterViewModel
+
+<!-- End Header Area -->
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Đăng ký</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+                    <a>Đăng ký</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img  src="~/karma-master/img/8bc09f62845d57fd8951e7bed4714b59-removebg-preview (2).png" />
+                  
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Đăng ký tài khoản</h3>
+                    <form asp-action="Register" asp-controller="Account" class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+                        <input asp-for="@Model.Taikhoan.Email" value="123" hidden />
+                        <input asp-for="@Model.Khachhang.EmailNavigation.Email" value="123" hidden />
+                        <input asp-for="@Model.Khachhang.EmailNavigation.Matkhau" value="123" hidden />
+                        <div class="col-md-12 form-group">
+                            <input asp-for="@Model.Khachhang.Tenkh" type="text" class="form-control" placeholder="User name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên đăng nhập'">
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Khachhang.Tenkh)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="@Model.Khachhang.Email" name="Khachhang.Email" type="text" class="form-control" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Khachhang.Email)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="@Model.Taikhoan.Matkhau" type="password" class="form-control" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mật khẩu'">
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Taikhoan.Matkhau)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="@Model.Khachhang.Sdt" type="text" class="form-control" placeholder="Phone number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'">
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Khachhang.Sdt)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <select asp-for="@Model.Khachhang.Gioitinh" class="form-control">
+                                <option value="true">Nam</option>
+                                <option value="false">Nữ</option>
+                            </select>
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Khachhang.Gioitinh)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="@Model.Khachhang.Ngaysinh" type="date" class="form-control" placeholder="Birth" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'">
+                            <span class="text-danger" style="position: absolute; left: 0; margin-top: -3px; margin-left: 30px;">@Html.ValidationMessageFor(model => model.Khachhang.Ngaysinh)</span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="primary-btn">Đăng ký</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<!--================End Login Box Area =================-->
+<!-- start footer Area -->

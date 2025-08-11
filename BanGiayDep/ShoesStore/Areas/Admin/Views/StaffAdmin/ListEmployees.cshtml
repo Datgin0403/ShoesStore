@@ -1,0 +1,46 @@
+﻿@using ShoesStore.Models
+@model IEnumerable<Nhanvien>
+
+<!--Just show data of nhan vien, just show password in update because it not frequently data used-->
+<a asp-action="CreateEmployee" class="btn btn-primary">Thêm nhân viên</a>
+<div class="container">
+    <h2 class="text-center">DANH SÁCH NHÂN VIÊN</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Tennv</td>
+                    <td>@employee.Ngaysinh</td>
+                    <td>@(employee.Gioitinh ? "Nam" : "Nữ")</td>
+                    <td>@employee.Sdt</td>
+                    <td>@employee.Email</td>
+                    <td>
+                        <form asp-controller="StaffAdmin" asp-action="EditEmployee" method="get">
+                            <input type="hidden" name="id" value="@employee.Manv" />
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </form>
+                        <form asp-controller="StaffAdmin" asp-action="DeleteEmployee" method="post">
+                            <input type="hidden" name="id" value="@employee.Manv" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

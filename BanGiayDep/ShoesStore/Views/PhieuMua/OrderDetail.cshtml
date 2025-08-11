@@ -1,0 +1,36 @@
+﻿@model ShoesStore.Models.Phieumua
+
+<h3>Chi tiết đặt hàng</h3>
+<div>
+    <h4>Mã đặt hàng: @Model.Mapm</h4>
+    <p>Ngày đặt: @Model.Ngaydat.ToString("dd/MM/yyyy")</p>
+    <p>Trạng thái: @Model.Tinhtrang</p>
+    <p>Tổng số tiền: @Model.Tongtien?.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</p>
+    <h4>Đặt hàng các mặt hàng</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Kích thước</th>
+                <th>Màu sắc</th>
+                <th>Đơn giá</th>
+                <th>Tổng số tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Chitietphieumuas)
+            {
+                var totalPrice = item.Soluong * item.Dongia;
+                <tr>
+                    <td>@item.MaspsizeNavigation.MaspNavigation.MadongsanphamNavigation.Tendongsp</td>
+                    <td>@item.Soluong</td>
+                    <td>@item.MaspsizeNavigation.MasizeNavigation.Tensize</td>
+                    <td>@item.MaspsizeNavigation.MaspNavigation.MamauNavigation.Tenmau</td>
+                    <td>@item.Dongia.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                    <td>@totalPrice.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

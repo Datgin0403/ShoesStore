@@ -1,0 +1,297 @@
+﻿@using ShoesStore.ViewModels
+@model PhieuMuaViewModel
+
+<style>
+    /* Custom CSS for Product Slider */
+    .product-card_2 {
+        position: relative; /* Required for absolute positioning of button */
+        flex: 0 0 auto;
+        height: 100px;
+    }
+
+    #productSlider_2:hover {
+        scrollbar-width: auto;
+    }
+
+    /* Hide scrollbar */
+    #productSlider_2 {
+        overflow-x: hidden; /* Hide the horizontal scrollbar */
+        overflow-y: auto;
+        scrollbar-width: none; /* Hide the scrollbar */
+    }
+
+    .voucher-details {
+        border: solid 1px #ccc;
+        padding:10px;
+        color: black; /* Set default text color */
+        transition: background-color 0.3s; /* Smooth transition for background color change */
+        border-radius:20px;
+    }
+
+        .voucher-details:hover {
+            background-color: black; /* Change background color on hover */
+            color: white; /* Change text color on hover */
+        }
+
+            .voucher-details:hover h3 {
+                color: white; /* Change h3 text color on hover */
+            }
+</style>
+
+<script>
+    var coinAmountChoose = null;
+    var coinAmountApply = '@(ViewBag.AmountApply ?? 0)';
+    var voucherCode = '@(Model.Choosenvoucher?.Mavoucher ?? "")';
+    var applyView = false;
+    var boolCheck = '@ViewBag.BoolCheck';
+    var changeAmountCode = null;
+    var strongFirstPrice = '@Model.totalCost.ToString("#,##0")' + "₫";
+    $('#strongFirstPrice').text(strongFirstPrice);
+    $('#coinApplyInput').val(coinAmountApply);
+
+    $(document).ready(function () {
+        if (boolCheck != "" && boolCheck != "False") {
+            $('#checkUseCoin').prop('checked', true);
+            $('#useKarCoin').removeAttr('hidden');
+            boolCheck = true;
+        }
+        $('#checkUseCoin').change(function () {
+            if ($(this).prop('checked') == true) {
+                $('#useKarCoin').removeAttr('hidden');
+                boolCheck = true;
+            }
+            else {
+                $('#useKarCoin').attr('hidden', true);
+                boolCheck = false;
+                $.ajax({
+                    url: '/PhieuMua/ChooseVoucherAndApplyXu',
+                    type: 'Get',
+                    data: {
+                        Boolcheck: false,
+                        mavoucher: voucherCode,
+                        AmountXu: 0,
+                        changeAmount: 0,
+                        AmountApply: 0,
+                        Apply: false,
+                    },
+                    success: function (response) {
+                        $('#partialPriceDetail').html(response);
+                    }
+                });
+            }
+        });
+
+        $('#decreaseCoin').click(function () {
+            coinAmountChoose = $('#coinInputHidden').val();
+            changeAmountCode = 2;
+            applyView = false;
+            changePriceCoin();
+        });
+
+        $('#increaseCoin').click(function () {
+            coinAmountChoose = $('#coinInputHidden').val();
+            changeAmountCode = 1;
+            applyView = false;
+            changePriceCoin();
+            
+        });
+
+
+        $('#applyCoin').click(function () {
+            coinAmountChoose = $('#coinInputHidden').val();
+            applyView = true;
+            changePriceCoin();
+        });
+
+    });
+    
+    if ('@ViewBag.voucherError' != "") {
+        alert("@Html.Raw(ViewBag.voucherError)");
+        $('#voucherInput').val("");
+        voucherCode = null;
+    }
+    if ('@ViewBag.voucherCode'!=""){
+        var mavoucher = '@ViewBag.voucherCode';
+        $('#voucherInput').val(mavoucher);
+        voucherCode = mavoucher;
+    }
+
+    if('@ViewBag.voucherDiscount' !=""){
+         var discountDown = "-" + '@ViewBag.voucherDiscount?.ToString("#,##0")' + "₫";
+          $('#discountSpan').text(discountDown);
+        var coinGet = '@Model.coinGet.ToString("#,##0")' + " Karma Coin";
+        $('#coinWelcomeNum').text(coinGet);
+
+    }
+
+    if ('@ViewBag.xuTemp' != "" || '@ViewBag.xuTemp' != "0") {
+        @* var coinTemp = '@ViewBag.xuTemp?.ToString("#,##0")';
+         $('#coinInputShow').val(coinTemp); *@
+        var coinHiden = '@ViewBag.xuTemp';
+        $('#coinInputHidden').val(coinHiden);
+    }
+
+    function changePriceCoin() {
+        $.ajax({
+            url: '/PhieuMua/ChooseVoucherAndApplyXu',
+            type: 'Get',
+            data: {
+                Boolcheck: true,
+                mavoucher: voucherCode,
+                AmountXu: coinAmountChoose,
+                changeAmount: changeAmountCode,
+                AmountApply: coinAmountApply,
+                Apply: applyView,
+            },
+            success: function (response) {
+                $('#partialPriceDetail').html(response);
+            }
+        });
+    }
+
+    function chooseVoucherDiv(mavoucherView) {
+        coinAmountChoose = $('#coinInputHidden').val();
+        console.log("Mavoucher: " + mavoucherView);
+        $.ajax({
+            url: '/PhieuMua/ChooseVoucherAndApplyXu',
+            type: 'Get',
+            data: {
+                Boolcheck: boolCheck,
+                mavoucher: mavoucherView,
+                AmountXu: coinAmountChoose,
+                changeAmount: 0,
+                AmountApply: coinAmountApply,
+                Apply: false
+            },
+            success: function (response) {
+
+                $('#partialPriceDetail').html(response);
+                console.log("Success voucher");
+               
+            }
+        });
+    }
+
+    function chooseVoucherButton() {
+        coinAmountChoose = $('#coinInputHidden').val();
+        var mavoucherView = $('#voucherInput').val();
+        console.log("Mavoucher: " + mavoucherView);
+        $.ajax({
+            url: '/PhieuMua/ChooseVoucherAndApplyXu',
+            type: 'Get',
+            data: {
+                 Boolcheck: boolCheck,
+                mavoucher: mavoucherView,
+                AmountXu: coinAmountChoose,
+                changeAmount: 0,
+                AmountApply: coinAmountApply,
+                Apply: false
+            },
+            success: function (response) {
+                $('#partialPriceDetail').html(response);
+                console.log("Success voucher");
+
+            }
+        });
+    }
+</script>
+
+<div id="partialPriceDetail">
+<section class="container position-relative mt-2 mb-2">
+    <!-- Adjusted margin-top here -->
+    <div id="productSlider_2" class="row flex-row flex-nowrap overflow-auto" style="border-top: solid 1px #ccc;padding-top:15px">
+        @foreach (Voucher voucher in Model.voucherList)
+        {
+            <div class="product-card_2" style="cursor:pointer" onclick="chooseVoucherDiv('@voucher.Mavoucher')">
+                <div class="voucher-details">
+                    <h3 style="padding-bottom:0px;margin-bottom:0px;border:none">@voucher.Mavoucher
+                        <span style="font-size:14px;font-weight:normal;">
+                        (Available: @voucher.Soluong)
+                    </span></h3>
+                    <p style="margin-bottom:0px">Khuyến mãi @((voucher.Giamtoida).ToString("#,##0"))₫</p>
+                    <p style="margin-bottom:0px">Đơn hàng từ @((voucher.Giatoithieu).ToString("#,##0"))₫</p>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" asp-for="@Model.Choosenvoucher.Mavoucher" id="voucherInput" placeholder="Mã giảm giá" aria-label="Tên người dùng của người nhận" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="button" onclick="chooseVoucherButton()">Đăng ký</button>
+        </div>
+    </div>
+    @if (Model.khInfo != null)
+    {
+        <div class="form-check" style="border-top:solid 1px #ccc;padding-top:15px">
+            <input class="form-check-input" type="checkbox" value="0" id="checkUseCoin">
+            <label class="form-check-label" for="flexCheckDefault" style="color:#000000">
+                <strong>Sử dụng Shoes xu</strong> <span style="font-size:12px">
+                    (Xu bạn có: @Model.khInfo?.Tongxu.ToString("#,##0"))
+                </span>
+            </label>
+        </div>
+
+        <div class="input-group mb-3 mt-3" id="useKarCoin" hidden>
+            <div style="display:flex; align-items:center;" class="mr-2">
+                <a class="btn btn-light btn-sm mr-1" style="order: 1;" id="decreaseCoin">
+                    <i class="bi bi-dash" style="font-size:20px"></i>
+                </a>
+                <input hidden id="coinInputHidden" asp-for="@Model.coinChoosen" />
+                <input disabled type="text" maxlength="8" title="Quantity:" value="@Model.coinChoosen.ToString("#,##0")" id="coinInputShow"
+                       style="width:241px;text-align:center; order: 2;">
+                <a class="btn btn-light btn-sm ml-1" style="order: 3;" id="increaseCoin">
+                    <i class="bi bi-plus" style="font-size:20px"></i>
+                </a>
+            </div>
+
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" id="applyCoin">Đăng ký</button>
+            </div>
+        </div>
+    }
+
+<div class="input-group mb-3 mt-3" id="useKarCoin" hidden>
+    <div style="display:flex; align-items:center;" class="mr-2">
+        <a class="btn btn-light btn-sm mr-1" style="order: 1;" id="decreaseCoin">
+            <i class="bi bi-dash" style="font-size:20px"></i>
+        </a>
+            <input  hidden id="coinInputHidden" asp-for="@Model.coinChoosen" />
+            <input disabled type="text" maxlength="8" title="Quantity:" value="@Model.coinChoosen.ToString("#,##0")" id="coinInputShow"
+               style="width:241px;text-align:center; order: 2;">
+        <a class="btn btn-light btn-sm ml-1" style="order: 3;" id="increaseCoin">
+            <i class="bi bi-plus" style="font-size:20px"></i>
+        </a>
+    </div>
+
+    <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" id="applyCoin">Đăng ký</button>
+    </div>
+</div>
+<input asp-for="@Model.coinApply" hidden id="coinApplyInput"/>
+<input asp-for="@Model.tempCost" hidden/>
+<input asp-for="@Model.totalCost" hidden />
+<input asp-for="@Model.coinGet" hidden/>
+<input asp-for="@Model.discountMoney" hidden/>
+<ul class="list list_2 mt-3" style="border-top:solid 1px #ccc;padding-top:5px">
+    <li><a style="border:none;font-size:12px" href="#">Tạm tính<span style="color:#231f20">@Model.tempCost.ToString("#,##0")₫</span></a></li>
+    <li><a style="border:none;font-size:12px" href="#">Khấu trừ<span style="color:#231f20" id="discountSpan">-@Model.discountMoney.ToString("#,##0")₫</span></a></li>
+    <li><a style="border:none;font-size:12px" href="#">Phí vận chuyển<span style="color:#231f20">Miễn phí</span></a></li>
+    <li style="border-top:solid 1px #ccc;padding-top:15px">
+        <a style="border-bottom:none;" href=" #">
+            Tổng hóa đơn<span style="font-size:20.8px;font-weight:bold;color:#231f20">
+                    @Model.totalCost.ToString("#,##0")₫
+            </span>
+        </a>
+    </li>
+    <li style="border-top:solid 1px #ccc;">
+        <a style="border:none;font-size:12px" href="#">
+            Lấy xu
+            <span style="color:#2F5ACF">
+                +@Model.coinGet.ToString("#,##0")
+            </span>
+        </a>
+    </li>
+
+</ul>
+</div>

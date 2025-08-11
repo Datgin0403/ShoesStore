@@ -1,0 +1,65 @@
+﻿@model Taikhoan
+
+<!-- End Header Area -->
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">	
+				<h1>Đăng nhập</h1>
+				<nav class="d-flex align-items-center">
+					<a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+					<a>Đăng nhập</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Banner Area -->
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-lg-6">
+
+				<div class="login_box_img">
+
+					<img src="~/karma-master/img/8bc09f62845d57fd8951e7bed4714b59-removebg-preview (2).png" />
+					<div class="hover">
+						<h4>Chào mừng bạn đã đến ShoesShop</h4>
+						<p>Cảm ơn bạn đã chọn ủng hộ và tin tưởng ShoesShop</p>
+						<a asp-action="Register" asp-controller="Account" class="primary-btn">Tạo một tài khoản</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="login_form_inner">
+					<h3>ĐĂNG NHẬP</h3>
+					<form asp-action="Login" asp-controller="Account" class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+						<input name="backToPage" hidden value="@ViewBag.backToPage">
+						<div class="col-md-12 form-group">
+							<input asp-for="@Model.Email" type="text" class="form-control" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+							<span asp-validation-for="@Model.Email" class="text-danger"></span>
+						</div>
+						<div class="col-md-12 form-group">
+							<input asp-for="@Model.Matkhau" type="password" class="form-control" placeholder="Mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							<span asp-validation-for="@Model.Matkhau" class="text-danger"></span>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<button type="submit" value="submit" class="primary-btn">Đăng nhập</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+<!-- start footer Area -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

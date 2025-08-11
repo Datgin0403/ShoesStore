@@ -1,0 +1,14 @@
+﻿@using ShoesStore.Areas.Admin.ViewModels
+@model KhuyenMaiViewModel
+
+<h2>Thêm Giày Khuyến mãi</h2>
+
+<form asp-action="AddDongSanPham" method="post">
+    <input type="hidden" asp-for="Makm" value="@Model.Makm"/>
+    <div>
+        <label asp-for="SelectedDongsanphams">Chọn giày:</label>
+        <select asp-for="SelectedDongsanphams" asp-items="Model.AvailableDongsanphams" multiple="multiple" size="10">
+        </select>
+    </div>
+    <button type="submit">Thêm khuyến mãi</button>
+</form>

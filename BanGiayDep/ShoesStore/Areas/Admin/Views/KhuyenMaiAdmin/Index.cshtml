@@ -1,0 +1,62 @@
+﻿@using ShoesStore.Models
+@model List<Khuyenmai>
+@{
+    ViewData["title"] = "Discount page";
+}
+<div class="text-center">
+    <h2 class="display-4">PROMOTION LIST</h2>
+</div>
+
+@section searchArea{
+    <form id="searchForm" asp-controller="Khuyenmai" asp-action="Index" method="get" class="d-flex" style="width:468px">
+        <div class="input-group">
+            <!-- Search bar -->
+            <input name="searchString" id="searchString" type="search" placeholder="tìm kiếm khuyến mãi..." class="form-control rounded" aria-label="Search" style="width:100px">
+            <button class="btn btn-info rounded" type="submit" style="width: 40px; height: 40px;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+}
+<div style="display: flex; justify-content: space-between; align-items: center; width:100%">
+    <!-- Link for creating a new Loai -->
+    <a asp-action="Create" asp-controller="KhuyenMaiAdmin" class="btn btn-primary"><i class="mdi mdi-plus-circle"></i></a>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Phần trăm bán</th>
+                <th scope="col">Ngày bắt đầu</th>
+                <th scope="col">Ngày kết thúc</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Populate table with Loai data -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Makm</td>                  
+                    <td>@item.Phantramgiam</td>
+                    <td>@item.Ngaybd</td>
+                    <td>@item.Ngaykt</td>
+                    <td>
+                        <a asp-action="ListDongSanPham" asp-controller="KhuyenMaiAdmin" asp-route-makm="@item.Makm" class="btn btn-gradient-info">
+                            <i class="mdi mdi-information"></i>
+                        </a>
+
+                        <form asp-controller="KhuyenMaiAdmin" asp-action="Delete" asp-route-id="@item.Makm" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-gradient-danger">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

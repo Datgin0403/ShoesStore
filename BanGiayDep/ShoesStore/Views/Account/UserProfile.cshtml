@@ -1,0 +1,330 @@
+﻿@model ShoesStore.Models.Khachhang
+
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Thông tin người dùng</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+                    <a>Thông tin người dùng</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-4" style="margin-bottom:20px">
+    <div class="row">
+        <div class="col-lg-3 my-lg-0 my-md-1">
+            <div id="sidebar" class="bg-purple">
+                <div class="h4 text-white">Tài khoản</div>
+                <ul>
+                    <li class="active" id="liProfile">
+                        <a id="profileClick" class="text-decoration-none d-flex align-items-start">
+                            <div class="far fa-user pt-2 me-3 mr-2"></div>
+                            <div class="d-flex flex-column">
+                                <div class="link">Hồ sơ của tôi</div>
+                                <div class="link-desc">Thay đổi chi tiết hồ sơ và mật khẩu của bạn</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li id="liOrder">
+                        <a id="orderClick" class="text-decoration-none d-flex align-items-start">
+                            <div class="fas fa-box-open pt-2 me-3 mr-2"></div>
+                            <div class="d-flex flex-column">
+                                <div class="link">Đơn hàng của tôi</div>
+                                <div class="link-desc">Xem & Quản lý đơn hàng</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li id="liAddress">
+                        <a id="addressClick" class="text-decoration-none d-flex align-items-start">
+                            <div class="far fa-address-book pt-2 me-3 mr-2"></div>
+                            <div class="d-flex flex-column">
+                                <div class="link">Sổ địa chỉ</div>
+                                <div class="link-desc">Xem và quản lý địa chỉ</div>
+                            </div>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 my-lg-0 my-1">
+            <div id="main-content" class="bg-white border">
+                @await Component.InvokeAsync("UserProfile")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#addressClick').click(function () {
+            $.ajax({
+                url: '/Account/AddressBook',
+                type: 'Get',
+                data: {},
+                success: function (response) {
+                    $('#main-content').html(response);
+                    $('li').removeClass('active');
+                    $('#liAddress').addClass('active');
+                }
+            });
+        });
+        
+
+            $('#orderClick').click(function () {
+            $.ajax({
+                url: '/Account/OrderHistory',
+                type: 'Get',
+                data: {},
+                success: function (response) {
+                    $('#main-content').html(response);
+                    $('li').removeClass('active');
+                    $('#liOrder').addClass('active');
+                }
+            });
+
+        });
+
+       $('#profileClick').click(function () {
+            $.ajax({
+                url: '/Account/Getuserprofile',
+                type: 'Get',
+                data: {},
+                success: function (response) {
+                    $('#main-content').html(response);
+                    $('li').removeClass('active');
+                    $('#liProfile').addClass('active');
+                }
+            });
+
+            
+        });
+
+     
+    });
+
+</script>
+<style>
+/* Resetting */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+#sidebar {
+    padding: 15px 0px 15px 0px;
+    border-radius: 10px;
+}
+
+#sidebar .h4 {
+    font-weight: 500;
+    padding-left: 15px;
+}
+
+#sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0rem;
+}
+
+#sidebar ul li {
+    padding: 10px 0;
+    display: block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-left: 5px solid transparent;
+}
+
+#sidebar ul li.active {
+                    border-left: 5px solid #1E90FF;
+                    background-color: #EE7700;
+}
+
+#sidebar ul li a {
+    display: block;
+}
+
+#sidebar ul li a .fas,
+#sidebar ul li a .far {
+    color: #fff;
+}
+
+#sidebar ul li a .link {
+    color: #fff;
+    font-weight: 500;
+}
+
+#sidebar ul li a .link-desc {
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+#main-content {
+    padding: 30px;
+    border-radius: 15px;
+}
+
+#main-content .h5,
+#main-content .text-uppercase {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+#main-content .h5+div {
+    font-size: 0.9rem;
+}
+
+#main-content .box {
+    padding: 10px;
+    border-radius: 6px;
+    width: 170px;
+    height: 90px;
+}
+
+#main-content .box img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+#main-content .box .tag {
+    font-size: 0.9rem;
+    color: #000;
+    font-weight: 500;
+}
+
+#main-content .box .number {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.order {
+    padding: 10px 30px;
+    min-height: 150px;
+}
+
+.order .order-summary {
+    height: 100%;
+}
+
+.order .blue-label {
+    background-color: #aeaeeb;
+    color: #0046dd;
+    font-size: 0.9rem;
+    padding: 0px 3px;
+}
+
+.order .green-label {
+    background-color: #a8e9d0;
+    color: #008357;
+    font-size: 0.9rem;
+    padding: 0px 3px;
+}
+
+.order .fs-8 {
+    font-size: 0.85rem;
+}
+
+.order .rating img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.order .rating .fas,
+.order .rating .far {
+    font-size: 0.9rem;
+}
+
+.order .status {
+    font-weight: 600;
+}
+
+.order .progressbar-track {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.order .progressbar-track .progressbar {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0rem;
+}
+
+.order .progressbar-track .progressbar li {
+    font-size: 1.5rem;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: #dddddd;
+    z-index: 100;
+    position: relative;
+}
+
+.order .progressbar-track .progressbar li.green {
+    border: 1px solid #007965;
+    background-color: #d5e6e2;
+}
+
+.order .progressbar-track .progressbar li::after {
+    position: absolute;
+    font-size: 0.9rem;
+    top: 50px;
+    left: 0px;
+}
+
+#tracker {
+    position: absolute;
+    border-top: 1px solid #bbb;
+    width: 100%;
+    top: 25px;
+}
+
+#step-1::after {
+    content: 'Placed';
+}
+
+#step-2::after {
+    content: 'Accepted';
+    left: -10px;
+}
+
+#step-3::after {
+    content: 'Packed';
+}
+
+#step-4::after {
+    content: 'Shipped';
+}
+
+#step-5::after {
+    content: 'Delivered';
+    left: -10px;
+}
+
+
+
+/* Backgrounds */
+.bg-purple {
+        background-color: #FA7D00;
+}
+
+.bg-light {
+    background-color: #f0ecec !important;
+}
+
+.green {
+    color: #007965 !important;
+}
+
+</style>

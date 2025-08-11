@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.order-details-container {
+    max-width: 960px; /* Adjust width as needed */
+    margin: 20px auto; /* Centers the container */
+    padding: 20px; /* Adds padding inside the container */
+    background-color: #f9f9f9; /* Light background for the container */
+    border: 1px solid #e3e3e3; /* Optional: adds a border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds shadow for 3D effect */
+}

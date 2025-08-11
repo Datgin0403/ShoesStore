@@ -1,0 +1,334 @@
+﻿@using System.Diagnostics;
+@using X.PagedList.Mvc.Core;
+@using ShoesStore.ViewModels;
+@using Newtonsoft.Json;
+@model List<DongsanphamViewModel>
+<style>
+
+	.product-images img {
+		max-width: 50px; /* Adjust this value as needed */
+		max-height: 50px; /* Adjust this value as needed */
+		margin-right: 10px; /* Optional: Add some spacing between images */
+	}
+
+		.product-images img:hover {
+			transform: scale(1.1); /* Increase size on hover */
+			cursor: pointer; /* Change cursor to pointer on hover */
+		}
+
+	.product-details {
+		opacity: 1;
+		transition: opacity 0.8s ease-in;
+	}
+
+		.product-details.lost {
+			display: none;
+			opacity: 0;
+		}
+
+	.product-images.hidden {
+		display: none;
+	}
+
+	.square-box {
+		width: 100%;
+		padding-top: 100%; /* Creates a square box based on percentage */
+		position: relative;
+		background-color: #FF8E31; /* Light orange background color */
+		text-align: center;
+		margin: 10px 0px; /* Adjust the spacing between boxes */
+		border-radius: 3px;
+	}
+
+	.countdown-number {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 18px; /* Decreased font size */
+		font-weight: bold;
+		color: #FFFFFF; /* Text color */
+	}
+
+	.countdown-label {
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		transform: translate(-50%,50%);
+		font-size: 12px; /* Decreased font size */
+		font-weight:bold;
+		color: #FFFFFF; /* Text color */
+	} 
+	
+</style>
+@section Script{
+	<script>
+		var maMau1 = '@ViewBag.maMau1';
+		var phantramgiam1 = '@ViewBag.phantramgiam';
+		var searchString1 = '@ViewBag.searchString1';
+		var sortGia1 = '@ViewBag.sortGia1';
+		var minPrice1 = '@ViewBag.minPrice1';
+		var maxPrice1 = '@ViewBag.maxPrice1';
+
+
+		$(document).ready(function () {
+
+			$('#sortGia').change(function () {
+				var selectedValue = $(this).val();
+
+				if (selectedValue) {
+					sortGia1 = selectedValue;
+					getToController();
+				}
+			});
+			$('.pixel-radio.mauInput').click(function () {
+				var selectedValue = $(this).attr('value');
+				var isSelected = $(this).hasClass('selected');
+
+				if (isSelected) {
+					$(this).css({
+						'border': 'none',
+					});
+					maMau1 = '';
+					$(this).removeClass('selected');
+				} else {
+					$('.pixel-radio.mauInput').css({
+						'border': 'none',
+					});
+					$('.pixel-radio.mauInput').removeClass('selected');
+					$(this).css({
+						'border': '5px solid #FFBA00',
+						'box-sizing': 'border-box',
+
+					});
+					maMau1 = selectedValue;
+					$(this).addClass('selected');
+				}
+				getToController();
+			});
+
+			$('#kmToggle').css({ display: 'none' });
+			$('#search_inputKm').change(function () {
+				var inputValue = $(this).val();
+				console.log("Sale Index search: "+inputValue);
+				if (inputValue) {
+					searchString1 = inputValue;
+					$('#search_input').val(searchString1);
+					getToController();
+				}
+			});
+
+			var priceRange = document.getElementById("price-range2");
+			var lowerValue = document.getElementById("lower-value2");
+			var upperValue = document.getElementById("upper-value2");
+
+			var minPrice = 0;
+			var maxPrice = 10000000;
+			var lowerBound = 0;
+			var upperBound = 10000000;
+
+			lowerValue.textContent = lowerBound;
+			upperValue.textContent = upperBound;
+
+			noUiSlider.create(priceRange, {
+				start: [lowerBound, upperBound],
+				connect: true,
+				range: {
+					'min': minPrice,
+					'max': maxPrice
+				},
+				step: 500000,
+			});
+
+			priceRange.noUiSlider.on('update', function (values, handle) {
+				var value = values[handle];
+				if (handle == 0) {
+					lowerValue.innerText = formatPrice(Math.round(value));
+				}
+				else {
+					upperValue.innerText = formatPrice(Math.round(value));
+				}
+				minPrice1 = values[0];
+				maxPrice1 = values[1];
+				getToController();
+			});
+
+			function formatPrice(price) {
+				return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			}
+
+			function getToController() {
+				$.ajax({
+					url: '/KhuyenMai/FindSaleProduct',
+					type: 'Get',
+					data: {
+						searchString: searchString1,
+						maMau: maMau1,
+						sortGia: sortGia1,
+						minPrice: minPrice1,
+						maxPrice: maxPrice1,
+						phantramgiam: phantramgiam1
+					},
+					success: function (response) {
+						$('#partialSanPhamKm').html(response);
+						console.log("Success km");
+					},
+				});
+			}
+		});
+		function showProductDetails(element) {
+			var productDetails = element.querySelector('.product-details');
+			productDetails.classList.toggle('lost');
+
+			var productImages = element.querySelector('.product-images');
+			productImages.classList.toggle('hidden');
+		}
+	</script>
+ }
+
+@section searchProductSales{
+	<form class="d-flex justify-content-between" id="searchFormKm">
+		<input type="text" name="searchStringKm" class="form-control" id="search_inputKm" placeholder="Tìm kiếm sản phẩm">
+		<button type="submit" class="btn"></button>
+		<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+	</form>
+}
+
+<section class="banner-area organic-breadcrumb mb-3">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">
+				<h1>Danh mục</h1>
+				<nav class="d-flex align-items-center">
+					<a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+					<a href="#">Khuyến mại<span class="lnr lnr-arrow-right"></span></a>
+					<a href="#">Giày chạy</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section >
+<!-- End Banner Area -->
+<div class="container">
+	<h2 class="text-center">Siêu Khuyến mại</h2>
+	<div class="row justify-content-md-center">
+		
+		<div class="col-sm-1" >
+			<div class="square-box">
+				<p id="days" class="countdown-number">00</p>
+				<span class="countdown-label">Ngày</span>
+			</div>
+		</div>
+
+		<div class="col-sm-1">
+			<div class="square-box">
+				<p id="hours" class="countdown-number">00</p>
+				<span class="countdown-label">Giờ</span>
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<div class="square-box">
+				<p id="minutes" class="countdown-number">00</p>
+				<span class="countdown-label">Phút</span>
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<div class="square-box">
+				<p id="seconds" class="countdown-number">00</p>
+				<span class="countdown-label">Giây</span>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="container" id="content">
+	<div class="row">
+		<div class="col-xl-3 col-lg-4 col-md-5">
+			<div class="sidebar-filter mt-0">
+				<form asp-action="SanPhamList" asp-controller="SanPham" id="form-search">
+					<div class="top-filter-head">Lọc sản phẩm</div>
+					<div class="common-filter">
+						<div class="head">Màu sắc</div>
+						<ul>
+							@foreach (SelectListItem mau in ViewBag.MauList)
+							{
+								<li class="filter-list">
+
+									<input class="pixel-radio mauInput" type="radio" name="color" style="background-color:@mau.Value"
+										   value="@mau.Value">
+									<label>
+										@mau.Text
+									</label>
+								</li>
+							}
+						</ul>
+					</div>
+					<div class="common-filter">
+						<div class="head">Giá</div>
+						<div class="price-range-area">
+							<div id="price-range2"></div>
+							<div class="value-wrapper d-flex">
+								<div class="price">Giá từ:</div>
+								<div id="lower-value2"></div>
+								<span>₫</span>
+								<div class="to"> - </div>
+								<div id="upper-value2"></div>
+								<span>₫</span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-xl-9 col-lg-8 col-md-7">
+			<!-- Start Filter Bar -->
+			<div class="filter-bar d-flex flex-wrap align-items-center">
+				<div class="sorting">
+					<select id="sortGia" name="sortGia">
+						<option value="0">Sắp xếp giá</option>
+						<option value="1">Giá tăng dần</option>
+						<option value="2">Giá giảm dần</option>
+					</select>
+				</div>
+
+			</div>
+			<!-- End Filter Bar -->
+			<!-- Start Best Seller -->
+
+			<section class="lattest-product-area pb-40 category-list">
+				<div class="row" id="partialSanPhamKm">
+					<partial name="_PartialSanPhamTheoLoai" model="@Model" />
+				</div>
+			</section>
+
+			<!-- End Best Seller -->
+			<!-- Start Filter Bar -->
+			<!-- End Filter Bar -->
+		</div>
+	</div>
+</div>
+
+@await Component.InvokeAsync("BlogLast",new {theloai = "Thumbnail"});
+@{
+
+	string formattedString = ViewBag.Ngaykt.ToString("yyyy-MM-dd");
+}
+
+<script>
+	var countDownDate = new Date("@formattedString").getTime();
+	var x = setInterval(function(){
+		var now = new Date().getTime();
+		var distance = countDownDate - now;
+
+		var days = Math.floor(distance/(1000 * 60 * 60 * 24));
+		var hours = Math.floor((distance % (1000 * 60 * 60 *24)) / (1000*60*60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance %(1000*60)) / 1000);
+
+		document.getElementById("days").innerText = days;
+		document.getElementById("hours").innerText  = hours;
+		document.getElementById("minutes").innerText = minutes;
+		document.getElementById("seconds").innerText = seconds;
+	},1000);
+</script>

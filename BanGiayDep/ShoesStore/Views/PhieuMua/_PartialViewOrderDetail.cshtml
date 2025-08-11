@@ -1,0 +1,141 @@
+﻿@using ShoesStore.ViewModels
+@model PhieuMuaViewModel
+
+<style>
+    #selectTinh , #selectQuan , #selectPhuong {
+        display:block !important;
+        color: #777777;
+        border: 1px solid #ced4da;
+    }
+
+    /* #selectQuan{
+        display: block !important;
+    }
+
+    #selectPhuong{
+        display: block !important;
+    } */
+    .nice-select{
+        display:none !important;
+    }
+</style>
+<div class="col-md-6 form-group p_star">
+    <label for="exampleFormControlInput1" class="form-label" asp-for="@Model.HoTen"><strong>Tên khách hàng</strong></label>
+    <input type="text" class="form-control" id="HoTenInput" placeholder="Tên khách hàng" asp-for="@Model.HoTen">
+    <span asp-validation-for="@Model.HoTen" class="text-danger"></span>
+</div>
+<div class="col-md-6 form-group p_star">
+    <label for="exampleFormControlInput1" class="form-label" asp-for="@Model.Sdt"><strong>Số điện thoại</strong></label>
+    <input type="number" class="form-control" id="SdtInput" placeholder="Số điện thoại" asp-for="@Model.Sdt">
+    <span asp-validation-for="@Model.Sdt" class="text-danger"></span>
+</div>
+<div class="col-md-12 form-group p_star">
+    <label for="exampleFormControlInput1" class="form-label" asp-for="@Model.Email"><strong>Email</strong></label>
+    <input readonly type="email" class="form-control" id="EmailInput" placeholder="Email" asp-for="@Model.Email">
+    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+</div>
+<div class="col-md-12 form-group p_star">
+    <label for="exampleFormControlInput1" class="form-label"><strong>Địa chỉ</strong></label>
+    <input asp-for="@Model.Diachi" type="text" class="form-control" id="DiachiInput" placeholder="Địa chỉ ">
+    <span asp-validation-for="@Model.Diachi" class="text-danger"></span>
+</div>
+<div class="col-md-12 form-group p_star">
+    <div class="row">
+        <div class="col-md-4">
+            <select asp-for="@Model.maTinh" class="form-select" id="selectTinh" style="display:block">
+                <option value="">Chọn tỉnh</option>
+                @foreach (SelectListItem item in ViewBag.TinhSelect)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <span asp-validation-for="@Model.maTinh" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <select asp-for="@Model.maQuan" class="form-select" id="selectQuan">
+                <option value="">Chọn Quận/Huyện</option>
+                @if (ViewBag.QuanSelect != null)
+                {
+                     foreach (SelectListItem item in ViewBag.QuanSelect)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    } 
+                }
+
+            </select>
+            <span asp-validation-for="@Model.maQuan" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <select asp-for="@Model.maPhuong" class="form-select" id="selectPhuong">
+                <option value="">Chọn xã/phường</option>
+                @if (ViewBag.PhuongSelect != null)
+                {
+                    foreach (SelectListItem item in ViewBag.PhuongSelect)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+                 
+            </select>
+            <span asp-validation-for="@Model.maPhuong" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var emailVar = '@Model.Email';
+        if (emailVar == "") {
+            $('#EmailInput').attr("readonly",false);
+        }
+        $('#selectTinh').change(function () {
+            var maTinhView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetDistinctsByProvince',
+                type: 'Get',
+                data: {
+                    provinceId : maTinhView,
+                },
+                success: function (response) {
+                    var selectQuan = $('#selectQuan');
+                    var selectWard = $('#selectPhuong');
+
+                    selectQuan.empty();
+                    selectQuan.append('<option value="">Chọn huyện</option>');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Chọn phường/xã</option>');
+                    $.each(response, function (index, item) {
+                        selectQuan.append($('<option>', {
+                            value: item.value,
+                            text:item.text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $('#selectQuan').change(function () {
+            var maQuanView = $(this).val();
+            $.ajax({
+                url: '/PhieuMua/GetWardByDistrict',
+                type: 'Get',
+                data: {
+                    districtId : maQuanView,
+                },
+                success:function(response){
+                    var selectWard = $('#selectPhuong');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Chọn phường/xã</option>');
+                    $.each(response, function (index, item) {
+                        selectWard.append($('<option>', {
+                            value : item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>

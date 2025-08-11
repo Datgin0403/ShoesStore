@@ -1,0 +1,81 @@
+﻿@using ShoesStore.Models
+@model List<Dongsanpham>
+@{
+    ViewData["title"] = "Product line page";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="path/to/font-awesome/css/all.min.css" />
+
+<div class="text-center">
+    <h2 class="display-4">DANH SÁCH GIÀY</h2>
+</div>
+
+@section searchArea{
+    <form id="searchForm" asp-controller="Dongsanpham" asp-action="Index" method="get" class="d-flex" style="width:468px">
+        <div class="input-group">
+            <!-- Search bar -->
+            <input name="searchString" id="searchString" type="search" placeholder="tìm kiếm giày..." class="form-control rounded" aria-label="Search" style="width:100px">
+            <button class="btn btn-info rounded" type="submit" style="width: 40px; height: 40px;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+}
+    <div style="display: flex; justify-content: space-between; align-items: center; width:100%">
+        <!-- Link for creating a new Loai -->
+        <a asp-action="Create" asp-controller="Dongsanpham" class="btn btn-primary"><i class="mdi mdi-plus-circle"></i></a>
+    </div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Tên giày</th>
+                <th scope="col">Loại giày</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+            }
+            <!-- Populate table with Loai data -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(++index)</td>
+                    <td>
+                        @if (item.Sanphams.Any())
+                        {
+                            <img src="~/img/@item.Madongsanpham/@item.Sanphams.ElementAt(0).Anhdaidien" style="width:60px;height:60px;border-radius:2px" alt="Avatar">
+                        }
+                        
+                    </td>
+                    <td>@item.Tendongsp</td>
+                    <td>@item.MaloaiNavigation.Tenloai</td>
+                    <td>@($"{item.Giagoc:#,##0}₫")</td>
+                    
+                    <td>
+                        <a asp-action="SanPhamList" asp-controller="SanPhamAdmin" asp-route-madongsp="@item.Madongsanpham" class="btn btn-gradient-info">
+                            <i class="mdi mdi-information"></i>
+                        </a>
+                        <a asp-action="Edit" asp-controller="Dongsanpham" asp-route-id="@item.Madongsanpham" class="btn btn-gradient-primary">
+                            <i class="mdi mdi-table-edit"></i>
+                        </a>
+                        <form asp-controller="Loai" asp-action="Delete" asp-route-id="@item.Maloai" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-gradient-danger">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,62 @@
+﻿@using ShoesStore.ViewModels
+@model PhieuMuaViewModel
+
+<a data-toggle="modal" data-target="#exampleModal" style="cursor:pointer;" class="float-right">
+    <i class="bi bi-journal-bookmark-fill"></i>
+    <span style="text-decoration:underline;color:orange">Chọn từ sổ địa chỉ</span>
+</a>
+<style>
+    .addressBlock {
+        width: 570px;
+        height: 75px;
+        border-radius: 3px;
+        border: solid 1px #ccc;
+        background-color: #FFFFFF;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: relative; /* Add position relative for absolute positioning */
+    }
+
+        /* Define hover effect for addressBlock */
+        .addressBlock:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example hover effect */
+        }
+
+        /* Position the Choose button */
+        .addressBlock .btn-choose {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+</style>
+
+<!-- Modal -->
+<form asp-action="AddAddress" asp-controller="PhieuMua">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document"  id="modalPopup"
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Sổ địa chỉ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var address in Model.sodiachis)
+                    {
+                        <div class="addressBlock">
+                            <h3 style="font-size:14px">@address.Tennguoinhan @address.Sdtnguoinhan</h3>
+                            <p>@address.Diachi</p>
+                            <a href="#" class="btn btn-info btn-choose">Chọn</a>
+                        </div>
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

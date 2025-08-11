@@ -1,0 +1,35 @@
+﻿@model string
+
+@{
+    var statusClass = "";
+    var iconClass = "";
+    var displayText = "";
+
+    switch (Model)
+    {
+        case "Pending":
+            statusClass = "badge badge-warning";
+            iconClass = "fas fa-hourglass-half";
+            displayText = "Pending";
+            break;
+        case "Confirm":
+            statusClass = "badge badge-success";
+            iconClass = "fas fa-check";
+            displayText = "Confirmed";
+            break;
+        case "Cancel":
+            statusClass = "badge badge-danger";
+            iconClass = "fas fa-times";
+            displayText = "Canceled";
+            break;
+        default:
+            statusClass = "badge badge-secondary";
+            iconClass = "fas fa-question";
+            displayText = "Unknown";
+            break;
+    }
+}
+
+<span class="@statusClass">
+    <i class="@iconClass"></i> @displayText
+</span>

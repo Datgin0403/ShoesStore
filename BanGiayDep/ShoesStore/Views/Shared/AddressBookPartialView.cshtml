@@ -1,0 +1,121 @@
+﻿@model List<Sodiachi>
+
+
+@foreach (Sodiachi sdc in Model)
+{
+    <div class="mb-3" style="border-top: solid 1px #ccc; padding-top: 15px;">
+        <div class="row">
+            <div class="col-md-9">
+                <p style="margin-bottom: 0;"><strong>@sdc.Tennguoinhan</strong></p>
+                <p style="margin-bottom: 0;">@sdc.Sdtnguoinhan</p>
+                <p style="margin-bottom: 0;">@sdc.Diachi</p>
+            </div>
+            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                <button class="genric-btn info radius updateButton" value="@sdc.Masodiachi" data-toggle="modal" data-target="#exampleModalUpdate">
+                    Chỉnh sửa
+                </button>
+                <button class="genric-btn danger radius deleteButtonAddress ml-2" value="@sdc.Masodiachi">Xoá</button>
+            </div>
+        </div>
+    </div>
+
+}
+<div id="partialUpdate">
+    <partial name="UpdateAddressPartial" />
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.deleteButtonAddress').click(function () {
+            var masdcView = $(this).attr('value');
+            if (confirm("Xác nhận xóa sổ địa chỉ?")) {
+                $.ajax({
+                    url: '/PhieuMua/DeleteAddress',
+                    type: 'GET',
+                    data:{
+                        masdc : masdcView
+                    },
+                    success: function (response) {
+                        $('#partialAddress').html(response);
+                    }
+                });
+            }
+        });
+
+        $('.updateButton').click(function () {
+            var masdcView = $(this).attr('value');
+            $('#hotenSpan').text("");
+            $('#sdtSpan').text("");
+            $('#addressSpan').text("");
+            $('#tinhSpan').text("");
+            $('#quanSpan').text("");
+            $('#phuongSpan').text("");
+
+            $.ajax({
+                url: '/PhieuMua/UpdateAddress',
+                type: 'GET',
+                data: {
+                    masdc: masdcView
+                },
+                success: function (response) {
+                    var selectTinh = $('#selectTinhUpdate');
+                    var selectQuan = $('#selectQuanUpdate');
+                    var selectWard = $('#selectPhuongUpdate');
+
+                    selectTinh.empty();
+                    selectTinh.append('<option value="">Chọn Tỉnh/Thành phố</option>');
+
+                    selectQuan.empty();
+                    selectQuan.append('<option value="">Chọn Quận/Huyện</option>');
+
+                    selectWard.empty();
+                    selectWard.append('<option value="">Chọn Phường/Xã</option>');
+                    console.log(response);
+                    console.log("response quan: " + response.quanSelect);
+
+                    $.each(response.tinhSelect, function (index, item) {
+                        selectTinh.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+
+                    $.each(response.quanSelect, function (index, item) {
+                        selectQuan.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+
+                    $.each(response.phuongSelect, function (index, item) {
+                        selectWard.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+
+                    var selectTinhVal = response.maTinh;
+                    var selectQuanVal = response.maQuan;
+                    var selectPhuongVal = response.maPhuong;
+
+                    selectTinh.val(selectTinhVal);
+                    selectQuan.val(selectQuanVal);
+                    selectWard.val(selectPhuongVal);
+
+                    var hotenVal = response.tennguoinhan;
+                    var sdtVal = response.sdtnguoinhan;
+                    var diachiVal = response.diachi;
+
+                    $('#hotenInputUpdate').val(hotenVal);
+                    $('#sdtInputUpdate').val(sdtVal);
+                    $('#addressInputUpdate').val(diachiVal);
+
+                    var masdcView = response.masdc;
+                    $('#masdcViewUpdate').val(masdcView);
+                }
+
+            });
+        });
+    });
+</script>

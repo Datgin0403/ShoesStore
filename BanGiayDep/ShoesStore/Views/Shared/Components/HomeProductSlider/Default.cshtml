@@ -1,0 +1,192 @@
+﻿@using ShoesStore.ViewModels;
+
+@model List<SanPhamHomeViewModel>
+@{
+    int state = (int)(Sanpham.TrangThaiEnum)Model.ElementAt(0).sp.TrangThai;
+}
+<style>
+    /* Custom CSS for Product Slider */
+    .product-card {
+        position: relative; /* Required for absolute positioning of button */
+        flex: 0 0 auto;
+        width: 250px;
+        height: 370px;
+        margin-right: 20px;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+    }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* Button Style */
+    .btn-primary {
+        background-color: #ffffff;
+        color: #252a2b; /* Text color */
+        border-color: #ffffff;
+    }
+
+        .btn-primary:hover {
+            background-color: #1b4ea0;
+        }
+
+    .view-details-btn {
+        position: absolute;
+        bottom: 10px; /* Adjust as needed */
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
+        display: none; /* Initially hidden */
+        background-color: #ffffff;
+        border: 1px solid grey;
+        color: #252a2b; /* Text color */
+    }
+
+        .view-details-btn:hover {
+            background-color: #1b4ea0;
+            color: #ffffff; /* Text color on hover */
+        }
+
+    /* Show button on hover */
+    .product-card:hover .view-details-btn {
+        display: block;
+    }
+
+    .text-top-right {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fdd464; /* Adjust text color as needed */
+    }
+
+    #prevBtn,
+    #nextBtn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    #prevBtn {
+        left: 10px;
+    }
+
+    #nextBtn {
+        right: 10px;
+    }
+
+    /* Hide scrollbar */
+    #productSlider {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .product-info {
+        margin-bottom: 10px;
+    }
+</style>
+
+<section class="container position-relative mt-2">
+    <!-- Adjusted margin-top here -->
+    <h2 class="text-center">SẢN PHẨM HOT</h2>
+    <div id="productSlider" class="row flex-row flex-nowrap overflow-auto">
+        @foreach (var spHomeView in Model)
+        {
+            <div class="product-card">
+                <div class="product-image">
+                    <a asp-controller="SanPham" asp-action="HienThiSanpham"
+                       asp-route-madongsanpham="@spHomeView.sp.Madongsanpham" asp-route-masp="@spHomeView.sp.Masp">
+                        <img src="~/img/@spHomeView.sp.Madongsanpham/@spHomeView.sp.Anhdaidien" alt="Product Image">
+                        <p class="text-top-right"><strong>HOT</strong></p>
+                   </a>
+                    
+                </div>
+                <div class="product-info">
+                    <h5 class=" mt-2" style="text-align:left">@spHomeView.sp.MadongsanphamNavigation.Tendongsp @spHomeView.sp.MamauNavigation.Tenmau</h5>
+                    <h5 style="text-align:left;">@spHomeView.sp.MadongsanphamNavigation.Giagoc.ToString("#,##0")đ</h5>
+                </div>
+              
+                <a class="btn btn-primary view-details-btn"
+                   asp-controller="SanPham" asp-action="HienThiSanpham"
+                   asp-route-madongsanpham="@spHomeView.sp.Madongsanpham" asp-route-masp="@spHomeView.sp.Masp">Xem chi tiết</a>
+            </div>
+        }
+    </div>
+    <!-- Navigation Buttons -->
+    <button class="btn btn-primary" id="prevBtn">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <button class="btn btn-primary" id="nextBtn">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+</section>
+
+<script>
+    // JavaScript for Product Slider
+    const productSlider = document.getElementById('productSlider');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let scrollPosition = 0;
+    let manualScroll = false; // Flag to indicate manual scroll
+
+    const cardWidth = document.querySelector('.product-card').offsetWidth;
+
+    // Function to move to the next slide
+    const nextSlide = () => {
+        if (scrollPosition < productSlider.scrollWidth - productSlider.clientWidth) {
+            scrollPosition += cardWidth;
+            productSlider.scroll({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        } else {
+            // If at the end, go back to the start
+            scrollPosition = 0;
+            productSlider.scroll({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    // Event listener for previous button
+    prevBtn.addEventListener('click', () => {
+        if (scrollPosition > 0) {
+            scrollPosition -= cardWidth;
+            productSlider.scroll({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    // Event listener for next button
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+    });
+
+    // Automatic sliding every 5 seconds (changed from 3 seconds to 5 seconds)
+    setInterval(() => {
+        if (!manualScroll) { // Only slide automatically if not manually scrolling
+            nextSlide();
+        }
+    }, 5000); // Changed from 3000 to 5000 milliseconds
+
+    // Event listener for manual scroll
+    productSlider.addEventListener('scroll', () => {
+        scrollPosition = productSlider.scrollLeft;
+        manualScroll = true;
+        // Reset manualScroll flag after a short delay
+        setTimeout(() => {
+            manualScroll = false;
+        }, 100);
+    });
+</script>

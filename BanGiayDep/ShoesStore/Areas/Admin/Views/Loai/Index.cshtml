@@ -1,0 +1,62 @@
+﻿@using ShoesStore.Models
+@model List<Loai>
+@{
+    ViewData["title"] = "Type page";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="path/to/font-awesome/css/all.min.css" />
+
+<div class="text-center">
+    <h2 class="display-4">DANH SÁCH DANH MỤC GIÀY</h2>
+</div>
+
+@section searchArea{
+    <form id="searchForm" asp-controller="Loai" asp-action="Index" method="get" class="d-flex" style="width:468px">
+        <div class="input-group">
+            <!-- Search bar -->
+            <input name="searchString" id="searchString" type="search" placeholder="tìm kiếm loại giày..." class="form-control rounded" aria-label="Search" style="width:100px">
+            <button class="btn btn-info rounded" type="submit" style="width: 40px; height: 40px;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+}
+<div style="display: flex; justify-content: space-between; align-items: center; width:100%">
+    <!-- Link for creating a new Loai -->
+    <a asp-action="Create" asp-controller="Loai" class="btn btn-primary"><i class="mdi mdi-plus-circle"></i></a>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên danh mục giày</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Populate table with Loai data -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Maloai</td>
+                    <td>@item.Tenloai</td>        
+                    <td>
+                        <a asp-action="Edit" asp-controller="Loai" asp-route-id="@item.Maloai" class="btn btn-gradient-primary">
+                            <i class="mdi mdi-table-edit"></i>
+                        </a>
+                        <form asp-controller="Loai" asp-action="Delete" asp-route-id="@item.Maloai" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-gradient-danger">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

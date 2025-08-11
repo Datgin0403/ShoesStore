@@ -1,0 +1,115 @@
+﻿@using ShoesStore.Areas.Admin.ViewModels
+@model PhieuMuaDetailViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Chỉnh sửa đơn hàng @Html.Partial("_OrderStatus", @Model.Phieumua.Tinhtrang)</h4>
+            <form asp-action="Edit" method="post">
+                <input name="oldState" value="@Model.Phieumua.Tinhtrang" hidden/>
+                <div class="form-group">                 
+                    <label asp-for="@Model.Phieumua.Ngaydat">Ngày đặt hàng</label>
+                    <p class="form-control">@Model.Phieumua.Ngaydat</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Makh">Khách hàng</label>
+                    <p class="form-control">@Model.Phieumua.Makh</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Manv">Người lao động</label>
+                    <p class="form-control">@Model.Phieumua.Manv</p>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Tinhtrang">Tình trạng</label>
+                    <select asp-for="@Model.Phieumua.Tinhtrang" class="form-control">
+                        <option value="Confirm">Xác nhận</option>
+                        <option value="Cancel">Hủy bỏ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Mapttt">Phương thức mua hàng</label>
+                    <p class="form-control">@Model.Phieumua.Mapttt</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Ghichu">Ghi chú</label>
+                    <p class="form-control">@Model.Phieumua.Ghichu</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Lydohuydon">Lý do hủy đơn hàng (optional)</label>
+                    <textarea asp-for="@Model.Phieumua.Lydohuydon" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phieumua.Tongtien">Tổng hóa đơn</label>
+                    <p class="form-control">@Model.Phieumua.Tongtien</p>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="display-4">DANH SÁCH GIÀY</h4>
+                </div>
+                @if (Model.Chitietphieumuas != null && Model.Chitietphieumuas.Any())
+                {
+                    <div class="table-responsive mb-2">
+                        <table class="table table-striped table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình ảnh giày</th>
+                                    <th>Tên giày</th>
+                                    <th>Màu sắc</th>
+                                    <th>Kích cỡ</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Trị giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int count = 0;
+                                }
+                                @foreach (var item in Model.Chitietphieumuas)
+                                {
+                                    <tr>
+                                        <td>@(++count)</td>
+                                        <td>
+                                            <img src="~/img/@item.MaspsizeNavigation.MaspNavigation.Madongsanpham/@item.MaspsizeNavigation.MaspNavigation.Anhdaidien"
+                                            style="width:100px;height:100px;border-radius:3px;"/>
+                                        </td>
+                                        <td>
+                                             @item.MaspsizeNavigation.MaspNavigation.MadongsanphamNavigation.Tendongsp 
+                                        </td>
+                                        <td>
+                                            <div style="background-color:@item.MaspsizeNavigation.MaspNavigation.MamauNavigation.Mamau; width:30px;height:30px;"></div>
+                                           
+                                        </td>
+                                        <td>
+                                             @item.MaspsizeNavigation.MasizeNavigation.Tensize 
+                                        </td>
+                                        <td>@String.Format("{0:#,##0}", item.Dongia)₫</td>
+                                        <td>@item.Soluong</td>
+                                        <td>@String.Format("{0:#,##0}", item.Dongia * item.Soluong)₫</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>                   
+                }
+                <button type="submit" class="btn btn-gradient-primary me-2">Cập nhật</button>
+                <a href="@Url.Action("Index", "PhieuMuaAdmin")" class="btn btn-light">Hủy bỏ</a>
+            </form>
+        </div>
+    </div>       
+</div>
+
+
+
+    
+
+
+
+

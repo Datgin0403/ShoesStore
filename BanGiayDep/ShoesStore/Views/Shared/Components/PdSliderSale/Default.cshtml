@@ -1,0 +1,343 @@
+﻿@using ShoesStore.ViewModels;
+
+@model List<DongsanphamViewModel>
+
+<style>
+    /* Custom CSS for Product Slider */
+    .product-card_sale {
+        position: relative; /* Required for absolute positioning of button */
+        flex: 0 0 auto;
+        width: 250px;
+        height: 375px;
+        margin-right: 20px;
+    }
+
+    .product-image_sale {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+    }
+
+        .product-image_sale img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* Button Style */
+    .view-details-btn {
+        position: absolute;
+        bottom: 10px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        display: none; /* Initially hidden */
+    }
+
+    /* Show button on hover */
+    .product-card_sale:hover .view-details-btn {
+        display: block;
+    }
+
+    .text-top-right_sale {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: green; /* Adjust text color as needed */
+    }
+
+    #prevBtn_sale,
+    #nextBtn_sale {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    #prevBtn_sale {
+        left: 10px;
+    }
+
+    #nextBtn_sale {
+        right: 10px;
+    }
+
+    /* Hide scrollbar */
+    #productSlider_sale {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .product-info_sale {
+        margin-bottom: 10px;
+    }
+
+    .product-details_sale {
+        opacity: 1;
+        transition: opacity 0.8s ease-in;
+    }
+
+    .product-images_sale_inside {
+        display: flex; /* Use flexbox to align images */
+        flex-wrap: wrap; /* Allow images to wrap to the next line if needed */
+        justify-content: left; /* Center-align images horizontally */
+        align-items: flex-start; /* Center-align images vertically */
+    }
+
+        .product-images_sale_inside img {
+            max-width: 50px; /* Adjust maximum width of images */
+            max-height: 50px; /* Adjust maximum height of images */
+            margin: 5px; /* Add some space between images */
+        }
+
+            .product-images_sale_inside img:hover {
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+
+    .product-details_sale.lost {
+        display: none;
+        opacity: 0;
+    }
+
+    .product-images_sale_inside.hidden {
+        display: none;
+    }
+
+    .square-box {
+        width: 100%;
+        padding-top: 100%; /* Creates a square box based on percentage */
+        position: relative;
+        background-color: #FF8E31; /* Light orange background color */
+        text-align: center;
+        margin: 10px 0px; /* Adjust the spacing between boxes */
+        border-radius: 3px;
+    }
+
+    .countdown-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px; /* Decreased font size */
+        font-weight: bold;
+        color: #FFFFFF; /* Text color */
+    }
+
+    .countdown-label {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        font-size: 12px; /* Decreased font size */
+        font-weight: bold;
+        color: #FFFFFF; /* Text color */
+    }
+</style>
+
+
+@{
+
+    string formattedString = ViewBag.Ngaykt.ToString("yyyy-MM-dd");
+}
+<script>
+    function showProductDetails(element) {
+        var productDetails = element.querySelector('.product-details_sale');
+        productDetails.classList.toggle('lost');
+        console.log("In here");
+        var productImages = element.querySelector('.product-images_sale_inside');
+        productImages.classList.toggle('hidden');
+        var img = element.querySelectorAll('img');
+
+        var productCardHeights = document.querySelectorAll('.product-card_sale');
+        productCardHeights.forEach(function (productCardHeight) {
+            if (productImages.classList.contains('hidden')) {
+                productCardHeight.style.height = '375px';
+            } else {
+                var count = Math.round(img.length / 4);
+                var height = 375 + (50 * count);
+                console.log("Height: " + height);
+                productCardHeight.style.height = height + 'px';
+            }
+        });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const productSlider_sale = document.getElementById('productSlider_sale');
+        const prevBtn_sale = document.getElementById('prevBtn_sale');
+        const nextBtn_sale = document.getElementById('nextBtn_sale');
+
+        let scrollPosition_sale = 0;
+        let manualScroll_sale = false;
+        let isSliding = false;
+
+        const nextSlide_sale = () => {
+            if (!isSliding && scrollPosition_sale < productSlider_sale.scrollWidth - productSlider_sale.clientWidth) {
+                isSliding = true;
+                scrollPosition_sale += productSlider_sale.clientWidth;
+                productSlider_sale.scroll({
+                    left: scrollPosition_sale,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        prevBtn_sale.addEventListener('click', () => {
+            if (!isSliding && scrollPosition_sale > 0) {
+                isSliding = true;
+                scrollPosition_sale -= productSlider_sale.clientWidth;
+                productSlider_sale.scroll({
+                    left: scrollPosition_sale,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        nextBtn_sale.addEventListener('click', () => {
+            nextSlide_sale();
+        });
+
+        setInterval(() => {
+            if (!manualScroll_sale && !isSliding) {
+                nextSlide_sale();
+            }
+        }, 5000);
+
+        productSlider_sale.addEventListener('scroll', () => {
+            scrollPosition_sale = productSlider_sale.scrollLeft;
+            manualScroll_sale = true;
+            setTimeout(() => {
+                manualScroll_sale = false;
+            }, 100);
+        });
+
+        productSlider_sale.addEventListener('transitionend', () => {
+            isSliding = false;
+        });
+
+        // Adjust position of buttons on hover
+        const adjustButtonPosition = () => {
+            prevBtn_sale.style.top = `${prevBtn_sale.offsetTop}px`;
+            prevBtn_sale.style.left = `${prevBtn_sale.offsetLeft}px`;
+            nextBtn_sale.style.top = `${nextBtn_sale.offsetTop}px`;
+            nextBtn_sale.style.left = `${nextBtn_sale.offsetLeft}px`;
+        };
+
+        productSlider_sale.addEventListener('mouseenter', adjustButtonPosition);
+
+        // Restore button position when not hovered
+        productSlider_sale.addEventListener('mouseleave', () => {
+            prevBtn_sale.style.top = '';
+            prevBtn_sale.style.left = '';
+            nextBtn_sale.style.top = '';
+            nextBtn_sale.style.left = '';
+        });
+    });
+
+
+    var countDownDate = new Date("@formattedString").getTime();
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days_component").innerText = days;
+        document.getElementById("hours_component").innerText = hours;
+        document.getElementById("minutes_component").innerText = minutes;
+        document.getElementById("seconds_component").innerText = seconds;
+    }, 1000);
+</script>
+
+<div class="container">
+    <h2 class="text-center">SIÊU KHUYẾN MẠI</h2>
+    <div class="row justify-content-md-center">
+
+        <div class="col-sm-1">
+            <div class="square-box">
+                <p id="days_component" class="countdown-number">00</p>
+                <span class="countdown-label">Ngày</span>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <div class="square-box">
+                <p id="hours_component" class="countdown-number">00</p>
+                <span class="countdown-label">Giờ</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="square-box">
+                <p id="minutes_component" class="countdown-number">00</p>
+                <span class="countdown-label">Phút</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="square-box">
+                <p id="seconds_component" class="countdown-number">00</p>
+                <span class="countdown-label">Giây</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<section class="container position-relative mt-2 mb-2">
+
+    <div id="productSlider_sale" class="row flex-row flex-nowrap overflow-auto">
+        @foreach(var dongspView in Model)
+        {
+            <div class="product-card_sale" onmouseenter="showProductDetails(this)" onmouseleave="showProductDetails(this)">
+                <div class="product-image_sale">
+                    <a asp-action="HienThiSanpham" asp-controller="SanPham" 
+                        asp-route-masp="@dongspView.dongsp.Sanphams.ElementAt(0).Masp" asp-route-madongsanpham="@dongspView.dongsp.Madongsanpham">
+                        <img src="~/img/@dongspView.dongsp.Madongsanpham/@dongspView.dongsp.Sanphams.ElementAt(0).Anhdaidien" alt="Product Image" />
+                        <h5 class="text-top-right_sale"><strong>-@dongspView.Phantramgiam%</strong></h5>
+                    </a>            
+                </div>
+                <div class="product-info_sale mt-2" >
+                    <div class="product-details_sale">
+                        <h5>@dongspView.dongsp.Tendongsp</h5>
+                        <h6 style="color:#6c757d">@dongspView.dongsp.Sanphams.Count() Colors</h6>
+                    </div>
+                    <div class="product-images_sale_inside row hidden" style="margin-left:auto">
+                        @foreach (Sanpham sp in dongspView.dongsp.Sanphams)
+                        {
+                            <a asp-controller="SanPham" asp-action="HienThiSanpham" asp-route-madongsanpham="@sp.Madongsanpham" asp-route-masp="@sp.Masp">
+                                <img src="~/img/@dongspView.dongsp.Madongsanpham/@sp.Anhdaidien" alt="@dongspView.dongsp.Tendongsp">
+                            </a>
+                        }
+                    </div>
+                    <div class="price_sale">
+                        @{
+                            decimal? priceSale = dongspView.dongsp.Giagoc - (dongspView.dongsp.Giagoc * dongspView.Phantramgiam / 100);
+                        }
+                        <h5>
+                            @(priceSale.Value.ToString("#,##0"))₫ &nbsp;<span style="text-decoration:line-through;color:#cccccc">
+                                @dongspView.dongsp.Giagoc.ToString("#,##0")₫
+                            </span>
+                        </h5>
+                        <h5 style="color:green;">@dongspView.Phantramgiam% off</h5>
+                    </div>
+                </div>
+                <a class="btn btn-primary view-details-btn"
+                   asp-action="HienThiSanpham" asp-controller="SanPham"
+                   asp-route-masp="@dongspView.dongsp.Sanphams.ElementAt(0).Masp" asp-route-madongsanpham="@dongspView.dongsp.Madongsanpham">Xem chi tiết</a>
+            </div>
+        }
+    </div>
+
+    <button class="btn btn-primary" id="prevBtn_sale">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <button class="btn btn-primary" id="nextBtn_sale">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
+</section>
+

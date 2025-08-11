@@ -1,0 +1,96 @@
+﻿  @using ShoesStore.Models
+@model List<Phieumua>
+@{
+    ViewData["title"] = "Phieumua";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="path/to/font-awesome/css/all.min.css" />
+
+<div class="text-center">
+    <h2 class="display-4">ORDER LIST</h2>
+</div>
+
+@section searchArea{
+    <form id="searchForm" asp-controller="PhieuMuaAdmin" asp-action="Index" method="get" class="d-flex" style="width:468px">
+        <div class="input-group">
+            <!-- Search bar -->
+            <input name="searchString" id="searchString" type="search" placeholder="tìm kiếm phiếu mua..." class="form-control rounded" aria-label="Search" style="width:100px">
+            <button class="btn btn-info rounded" type="submit" style="width: 40px; height: 40px;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+}
+<div style="display: flex; justify-content: space-between; align-items: center; width:100%">
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Khách hàng</th>
+                <th scope="col">Phương thức mua hàng</th>
+                <th scope="col">Tổng hóa đơn</th>
+                <th scope="col">Tình trạng</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(++index)</td>
+                    <td>@item.Ngaydat</td>
+                    <td>@item.Makh</td>
+                    <td>@item.Mapttt</td>
+                    <td>@($"{item.Tongtien:#,##0}₫")</td>
+                    <td><partial name="_OrderStatus" model="@item.Tinhtrang"></td>
+
+                    <td>
+                        <a asp-action="Edit" asp-controller="PhieuMuaAdmin" asp-route-id="@item.Mapm" class="btn btn-gradient-primary">
+                            <i class="mdi mdi-table-edit"></i>
+                        </a> 
+    
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*section scripts{
+    <script>
+        $(document).ready(function () {
+            // Xử lý sự kiện khi nhấn nút cập nhật
+            $('body').on('click', '.btnCapNhat', function () {
+                var id = $(this).data("id");
+                $('#txtUrunId').val(id);
+                $('#modal-default').modal('show');
+            });
+
+            // Xử lý sự kiện khi nhấn nút lưu trong modal
+            $('body').on('click', '.btnLuu', function () {
+                var id = $('#txtUrunId').val();
+                var tt = $('#ddTrangThai').val();
+                $.ajax({
+                    url: '/admin/order/UpdateTT',
+                    type: 'POST',
+                    data: { id: id, trangthai: tt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+} *@
+

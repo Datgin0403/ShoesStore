@@ -1,0 +1,154 @@
+﻿@using ShoesStore.Areas.Admin.ViewModels;
+@model ReportViewModel
+<div class="row" id="ChartDiv">
+    <div class="col-8 offset-2 my-5">
+        <div class="card">
+            <div class="card-body">
+                <h3 id="HeaderChart">Biểu đồ bán hàng theo tháng</h3>
+                <hr />
+                <select class="float-right form-select form-select-sm"
+                        style="width:25%; display:none" id="chartSelect">
+                    @foreach (SelectListItem item in ViewBag.MonthList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+                <canvas id="dynamic-chart"></canvas>
+                <hr />
+                <button class="btn btn-success btn-sm" id="line">Theo tháng</button>
+                <button class="btn btn-info btn-sm" id="bar">Theo Top 5 sản phẩm</button>
+            </div>
+        </div>
+    </div>
+    @* <div class="col-4">
+    <div class="card">
+    <div class="card-body">
+    <h3>New Customer</h3>
+    </div>
+    </div>
+    </div> *@
+</div>
+<script>
+    var chartSelectValue = '@ViewBag.ChoosenMonth';
+    var labelsSaleByMonth = @Html.Raw(Json.Serialize(Model.saleByMonths.Select(x => x.month).ToList()));
+    var salesByMonth = @Html.Raw(Json.Serialize(Model.saleByMonths.Select(x => x.sale).ToList()));
+
+    var line = document.getElementById('line');
+    var bar = document.getElementById('bar');
+
+    line.addEventListener('click', changeLine);
+    bar.addEventListener('click', changeBar);
+
+    var labelsSaleByProduct = @Html.Raw(Json.Serialize(Model.saleByProducts.Select(x => x.ProductName).ToList()));
+    var salesByProduct = @Html.Raw(Json.Serialize(Model.saleByProducts.Select(x => x.Sales).ToList()));
+
+
+    var ctx = document.getElementById('dynamic-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', // dùng chartjs
+        data: {
+            labels: labelsSaleByMonth,
+            datasets: [{
+                label: 'Sales: ',
+                data: salesByMonth,
+                backgroundColor: [
+                    'rgba(255,99,132,0.2)',
+                    'rgba(54,162,235,0.2)',
+                    'rgba(255,206,86,0.2)',
+                    'rgba(75,192,192,0.2)',
+                    'rgba(153,102,255,0.2)',
+                    'rgba(255,159,64,0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54,162,235,1)',
+                    'rgba(255,206,86,1)',
+                    'rgba(75,192,192,1)',
+                    'rgba(153,102,255,1)',
+                    'rgba(255,159,64,1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            var label = context.dataset.label || '';
+
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 1 // Shift the start point to the second label
+                    }
+                }]
+            }
+        }
+    });
+    var headerChart = document.getElementById('HeaderChart');
+    var selectMonth = document.getElementById('chartSelect');
+
+    changeLine();
+    function changeLine() {
+        var updateType = 'line';
+        myChart.config.type = updateType;
+        myChart.data.labels = labelsSaleByMonth;
+        myChart.data.datasets[0].data = salesByMonth;
+        myChart.update();
+        headerChart.innerText = "Sale Chart By Month";
+        selectMonth.style.display = "none";
+    };
+
+    function changeBar() {
+        var updateType = 'bar';
+        myChart.config.type = updateType;
+        myChart.data.labels = labelsSaleByProduct;
+        myChart.data.datasets[0].data = salesByProduct;
+        myChart.update();
+
+        headerChart.innerText = "Sale Chart By Top 5 Products";
+        selectMonth.style.display = 'block';
+        $('#chartSelect').val(chartSelectValue);
+    };
+        $('#chartSelect').change(function () { //event listener  sự kiện khi mà nó thay đổi 
+            //Mỗi thẻ nó có mỗi sự kiện khác nhau, select thì nó có change
+            //#chartSelect là element select ở trên 
+            chartSelectValue = $(this).val(); //Lấy giá trị
+            console.log("Get to change month ajax");
+            $.ajax({ //Dùng ajax
+                url: '/admin/Report/ChangeMonth', //Đi đến hàm nào 
+                type: 'Get',
+                data: {
+                    month: chartSelectValue //Truyền dữ liệu
+                },
+            success: function (response) { //Nhận dữ liệu , response là cái report
+                    $('#ChartDiv').html(response); 
+                    // Chọn cái div nào sẽ refresh  là cái chartdiv nó bao hết partial view xong rồi chạy lại script
+                    changeBar(); //Cái này thì P muốn chuyển sang bar (nó ko có trog format)
+                }
+
+            });
+        });
+    
+</script>

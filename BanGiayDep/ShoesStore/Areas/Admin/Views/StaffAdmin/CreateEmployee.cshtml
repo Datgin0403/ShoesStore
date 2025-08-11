@@ -1,0 +1,62 @@
+﻿@model ShoesStore.Areas.Admin.ViewModels.RegisterAdminViewModel
+
+<div class="text-center">
+    <h2 class="display-4">Thêm nhân viên</h2>
+</div>
+
+<div class="col-lg-6">
+    <div class="login_form_inner">
+        <form asp-action="CreateEmployee" asp-controller="StaffAdmin" class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+            <input asp-for="@Model.Taikhoan.Email" value="123" hidden />
+            <input asp-for="@Model.Nhanvien.EmailNavigation.Email" value="123" hidden />
+            <input asp-for="@Model.Nhanvien.EmailNavigation.Matkhau" value="123456" hidden />
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Tennv">Tên nhân viên<span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Nhanvien.Tennv" type="text" class="form-control" placeholder="Họ và Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên tài khoản'">
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Nhanvien.Tennv)</span>
+            </div>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Email">Email <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Nhanvien.Email" type="email" class="form-control" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Nhanvien.Email)</span>
+            </div>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Taikhoan.Matkhau">Mật khẩu <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Taikhoan.Matkhau" type="text" class="form-control" value="123456" readonly>
+            </div>
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Diachi">Địa chỉ: </label>
+                <input asp-for="@Model.Nhanvien.Diachi" type="text" class="form-control" placeholder="Địa chỉ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'">
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Sdt">Số điện thoại <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Nhanvien.Sdt" type="text" class="form-control" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required>
+                <span class="text-danger text-left" style="text-align:left;">@Html.ValidationMessageFor(model => model.Nhanvien.Sdt)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Gioitinh">Giới tính <span style="color:red">*</span> : </label>
+                <select asp-for="@Model.Nhanvien.Gioitinh" class="form-control" required>
+                    <option value="">Chọn giới tính</option>
+                    <option value="true">Nam</option>
+                    <option value="false">Nữ</option>
+                </select>
+                <span class="text-danger" style="text-align:left;">@Html.ValidationMessageFor(model => model.Nhanvien.Gioitinh)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label asp-for="@Model.Nhanvien.Ngaysinh">Ngày sinh <span style="color:red">*</span> : </label>
+                <input asp-for="@Model.Nhanvien.Ngaysinh" type="date" class="form-control" placeholder="Ngày sinh" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'" required>
+                <span class="text-danger" style="text-align:left;">@Html.ValidationMessageFor(model => model.Nhanvien.Ngaysinh)</span>
+            </div>
+
+            <div class="col-md-12 form-group">
+                <button type="submit" value="submit" class="primary-btn">Thêm</button>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>

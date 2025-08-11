@@ -1,0 +1,25 @@
+﻿@model ShoesStore.Models.Loai
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@using (Html.BeginForm("Create", "Loai", FormMethod.Post, new { }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-center">Tạo danh mục giày mới </h2>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label>Tên danh mục giày</label>
+                        <input type="text" asp-for="Tenloai" class="form-control" id="exampleInputName1" placeholder="Tên">
+                    </div>                  
+                    <button type="submit" class="btn btn-gradient-primary me-2">Tạo mới</button>
+                    <a href="@Url.Action("Index", "Loai")" class="btn btn-light">Hủy</a>
+                </form>
+            </div>
+        </div>
+    </div>   
+}
+

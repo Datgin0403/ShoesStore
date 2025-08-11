@@ -1,0 +1,30 @@
+﻿@model ShoesStore.Models.Blog
+
+<h2>Detail of Blog</h2>
+
+<div>
+    <h4>Blog ID: @Model.Mablog</h4>
+    <h4>ID tác giả: @Model.Manv</h4>
+    <h4>Hình đại diện:</h4>
+    @if (!string.IsNullOrEmpty(Model.Anhdaidien))
+    {
+        <img src="@Url.Content($"~/img/blog/{Model.Anhdaidien}")" style="width:100px; height:100px;" />
+    }
+    else
+    {
+        <p>Không có hình đại diện nào</p>
+    }
+
+    <div class="form-group">
+        <label asp-for="Noidung">Nội dung:</label>
+        <div>@Html.Raw(Model.Noidung)</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Theloai">Loại:</label>
+        <div>@Model.Theloai</div>
+    </div>
+
+</div>
+
+<a asp-action="ListBlogs" class="btn btn-secondary">Quay lại danh sách</a>

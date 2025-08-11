@@ -1,0 +1,389 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\controllers\\phieumuacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\controllers\\phieumuacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\repositories\\phieumuarepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\repositories\\phieumuarepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\viewmodels\\phieumuaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\viewmodels\\phieumuaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\views\\phieumua\\_partialvieworderdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\views\\phieumua\\_partialvieworderdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\authentication\\authenticationcustomer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\authentication\\authenticationcustomer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\views\\phieumua\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\views\\phieumua\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\phieumua.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\phieumua.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\mau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\mau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\sodiachi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\sodiachi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\tinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\tinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\interfacerepositories\\imau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\interfacerepositories\\imau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\mailling\\emailentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\mailling\\emailentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\authentication\\authenticationadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\authentication\\authenticationadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\repositories\\khachhangrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\repositories\\khachhangrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\interfacerepositories\\iemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\interfacerepositories\\iemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\dongsanpham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\dongsanpham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\models\\blog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\models\\blog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\views\\phieumua\\_partialviewpricedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\views\\phieumua\\_partialviewpricedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|c:\\users\\dotha\\onedrive\\desktop\\shoesstore\\shoesstore\\bangiaydep\\shoesstore\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8C58419E-0CD0-49A9-95E1-5F31C3B32B41}|ShoesStore\\ShoesStore.csproj|solutionrelative:shoesstore\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthenticationAdmin.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Authentication\\AuthenticationAdmin.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Authentication\\AuthenticationAdmin.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Authentication\\AuthenticationAdmin.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Authentication\\AuthenticationAdmin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:51.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthenticationCustomer.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Authentication\\AuthenticationCustomer.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Authentication\\AuthenticationCustomer.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Authentication\\AuthenticationCustomer.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Authentication\\AuthenticationCustomer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:49.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "KhachhangRepo.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Repositories\\KhachhangRepo.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Repositories\\KhachhangRepo.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Repositories\\KhachhangRepo.cs",
+              "RelativeToolTip": "ShoesStore\\Repositories\\KhachhangRepo.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:44.549Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IEmailSender.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\InterfaceRepositories\\IEmailSender.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\InterfaceRepositories\\IEmailSender.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\InterfaceRepositories\\IEmailSender.cs",
+              "RelativeToolTip": "ShoesStore\\InterfaceRepositories\\IEmailSender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:31.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PhieuMuaController.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Controllers\\PhieuMuaController.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Controllers\\PhieuMuaController.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Controllers\\PhieuMuaController.cs",
+              "RelativeToolTip": "ShoesStore\\Controllers\\PhieuMuaController.cs",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAIwPoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:23:24.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmailEntity.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Mailling\\EmailEntity.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Mailling\\EmailEntity.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Mailling\\EmailEntity.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Mailling\\EmailEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:53.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IMau.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\InterfaceRepositories\\IMau.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\InterfaceRepositories\\IMau.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\InterfaceRepositories\\IMau.cs",
+              "RelativeToolTip": "ShoesStore\\InterfaceRepositories\\IMau.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:55.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SanPhamController.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Controllers\\SanPhamController.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Controllers\\SanPhamController.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Controllers\\SanPhamController.cs",
+              "RelativeToolTip": "ShoesStore\\Controllers\\SanPhamController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:56.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Tinh.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Tinh.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Tinh.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Tinh.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Tinh.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:40:00.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Sodiachi.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Sodiachi.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Sodiachi.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Sodiachi.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Sodiachi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:40:01.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Mau.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Mau.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Mau.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Mau.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Mau.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:40:03.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Khachhang.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Khachhang.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Khachhang.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Khachhang.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Khachhang.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBYAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:40:04.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PhieuMuaRepo.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Repositories\\PhieuMuaRepo.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Repositories\\PhieuMuaRepo.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Repositories\\PhieuMuaRepo.cs",
+              "RelativeToolTip": "ShoesStore\\Repositories\\PhieuMuaRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:33:48.538Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PhieuMuaViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\ViewModels\\PhieuMuaViewModel.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\ViewModels\\PhieuMuaViewModel.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\ViewModels\\PhieuMuaViewModel.cs",
+              "RelativeToolTip": "ShoesStore\\ViewModels\\PhieuMuaViewModel.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAswCcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:58:10.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Dongsanpham.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Dongsanpham.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Dongsanpham.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Dongsanpham.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Dongsanpham.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:23.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Blog.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Blog.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Blog.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Blog.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Blog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:22.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:21.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Phieumua.cs",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Phieumua.cs",
+              "RelativeDocumentMoniker": "ShoesStore\\Models\\Phieumua.cs",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Models\\Phieumua.cs",
+              "RelativeToolTip": "ShoesStore\\Models\\Phieumua.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAmwC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T15:39:05.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_PartialViewOrderDetail.cshtml",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\_PartialViewOrderDetail.cshtml",
+              "RelativeDocumentMoniker": "ShoesStore\\Views\\PhieuMua\\_PartialViewOrderDetail.cshtml",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\_PartialViewOrderDetail.cshtml",
+              "RelativeToolTip": "ShoesStore\\Views\\PhieuMua\\_PartialViewOrderDetail.cshtml",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAUwIwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-12T15:34:57.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ThanhToan.cshtml",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\ThanhToan.cshtml",
+              "RelativeDocumentMoniker": "ShoesStore\\Views\\PhieuMua\\ThanhToan.cshtml",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\ThanhToan.cshtml",
+              "RelativeToolTip": "ShoesStore\\Views\\PhieuMua\\ThanhToan.cshtml",
+              "ViewState": "AgIAALQBAAAAAAAAAAAUwM0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-12T15:34:14.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "_PartialViewPriceDetail.cshtml",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\_PartialViewPriceDetail.cshtml",
+              "RelativeDocumentMoniker": "ShoesStore\\Views\\PhieuMua\\_PartialViewPriceDetail.cshtml",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\Views\\PhieuMua\\_PartialViewPriceDetail.cshtml",
+              "RelativeToolTip": "ShoesStore\\Views\\PhieuMua\\_PartialViewPriceDetail.cshtml",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAAAHIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-12T15:29:08.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\appsettings.json",
+              "RelativeDocumentMoniker": "ShoesStore\\appsettings.json",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\appsettings.json",
+              "RelativeToolTip": "ShoesStore\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-12T15:17:52.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ScaffoldingReadMe.txt",
+              "DocumentMoniker": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\ScaffoldingReadMe.txt",
+              "RelativeDocumentMoniker": "ShoesStore\\ScaffoldingReadMe.txt",
+              "ToolTip": "C:\\Users\\dotha\\OneDrive\\Desktop\\ShoesStore\\ShoesStore\\BanGiayDep\\ShoesStore\\ScaffoldingReadMe.txt",
+              "RelativeToolTip": "ShoesStore\\ScaffoldingReadMe.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-06-12T15:17:40.429Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

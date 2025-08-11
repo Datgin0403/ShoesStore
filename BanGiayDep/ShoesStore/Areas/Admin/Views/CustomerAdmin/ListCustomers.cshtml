@@ -1,0 +1,29 @@
+﻿@using ShoesStore.Models
+@model List<Khachhang>
+
+<div class="container">
+    <h2 class="text-center">Danh sách khách hàng</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Email</td>
+                    <td>@customer.Tenkh</td>
+                    <td>@customer.Sdt</td>
+                    <td>@(customer.Gioitinh.HasValue ? (customer.Gioitinh.Value ? "Nam" : "Nữ") : "Unknown")</td>
+                    <td>@customer.Ngaysinh</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

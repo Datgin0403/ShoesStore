@@ -1,0 +1,243 @@
+﻿@using System.Diagnostics;
+@using X.PagedList.Mvc.Core;
+@using ShoesStore.ViewModels;
+@model List<DongsanphamViewModel>
+
+<style>
+
+	.product-images img {
+		max-width: 50px; /* Adjust this value as needed */
+		max-height: 50px; /* Adjust this value as needed */
+		margin-right: 10px; /* Optional: Add some spacing between images */
+	}
+
+		.product-images img:hover {
+			transform: scale(1.1); /* Increase size on hover */
+			cursor: pointer; /* Change cursor to pointer on hover */
+		}
+
+	.product-details {
+		opacity: 1;
+		transition: opacity 0.8s ease-in;
+	}
+
+		.product-details.lost {
+			display: none;
+			opacity: 0;
+		}
+
+	.product-images.hidden {
+		display: none;
+	}
+
+
+</style>
+@section Script{
+	<script>
+		var maMau1 = '@ViewBag.maMau1';
+		var maLoai1 = '@ViewBag.maLoai';
+		var searchString1 = '@ViewBag.searchString1';
+		var sortGia1 = '@ViewBag.sortGia1';
+		var minPrice1 = '@ViewBag.minPrice1';
+		var maxPrice1 = '@ViewBag.maxPrice1';
+
+		$(document).ready(function () {
+			$('#sortGia').change(function () {
+				var selectedValue = $(this).val();
+
+				if (selectedValue) {
+					sortGia1 = selectedValue;
+					getToController();
+				}
+			});
+			$('.pixel-radio.mauInput').click(function () {
+				var selectedValue = $(this).attr('value');
+				var isSelected = $(this).hasClass('selected');
+				
+				if (isSelected) {
+					$(this).css({
+						'border': 'none',
+					});
+					maMau1 = '';
+					$(this).removeClass('selected');
+				} else {
+					$('.pixel-radio.mauInput').css({
+						'border': 'none',
+					});
+					$('.pixel-radio.mauInput').removeClass('selected');
+					$(this).css({
+						'border': '5px solid #FFBA00',
+						'box-sizing':'border-box',
+						
+					});
+					maMau1 = selectedValue;
+					$(this).addClass('selected');
+				}
+				getToController();
+			});
+
+			
+			$('#search_input').val(searchString1);
+
+			var priceRange = document.getElementById("price-range2");
+			var lowerValue = document.getElementById("lower-value2");
+			var upperValue = document.getElementById("upper-value2");
+
+			var minPrice = 0;
+			var maxPrice = 10000000;
+			var lowerBound = 0;
+			var upperBound = 10000000;
+
+			lowerValue.textContent = lowerBound;
+			upperValue.textContent = upperBound;
+
+			noUiSlider.create(priceRange, {
+				start: [lowerBound, upperBound],
+				connect: true,
+				range: {
+					'min': minPrice,
+					'max': maxPrice
+				},
+				step: 500000,
+			});
+
+			priceRange.noUiSlider.on('update', function (values, handle) {
+				var value = values[handle];
+				if (handle == 0) {
+					lowerValue.innerText = formatPrice(Math.round(value));
+				}
+				else {
+					upperValue.innerText = formatPrice(Math.round(value));
+				}
+				minPrice1 = values[0];
+				maxPrice1 = values[1];
+				getToController();
+			});
+
+			function formatPrice(price) {
+				return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			}
+
+			function getToController() {
+				console.log("Get to controller: ");
+				$.ajax({
+					url: '/SanPham/SanPhamTheoLoai',
+					type: 'Get',
+					data: {
+						page: null,
+						searchString: searchString1,
+						maMau: maMau1,
+						sortGia: sortGia1,
+						minPrice: minPrice1,
+						maxPrice: maxPrice1,
+						maLoai: maLoai1
+					},
+					success: function (response) {
+						$('.lattest-product-area .row').html(response);
+
+						
+						
+					},
+				});
+			}
+		});
+
+		function showProductDetails(element) {
+			var productDetails = element.querySelector('.product-details');
+			productDetails.classList.toggle('lost');
+
+			var productImages = element.querySelector('.product-images');
+			productImages.classList.toggle('hidden');
+		}
+
+
+	</script>
+ }
+
+
+<section class="banner-area organic-breadcrumb mb-5">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">
+				<h1>Loại sản phẩm</h1>
+				<nav class="d-flex align-items-center">
+					<a asp-action="Index" asp-controller="Home">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+					<a href="#">Mua sắm<span class="lnr lnr-arrow-right"></span></a>
+					<a href="#">Loại sản phảm</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Banner Area -->
+<div class="container" id="content">
+	<div class="row">
+		<div class="col-xl-3 col-lg-4 col-md-5">
+			<div class="sidebar-filter mt-0">
+				<form asp-action="SanPhamList" asp-controller="SanPham" id="form-search">
+					<div class="top-filter-head">Lọc sản phẩm</div>
+					<div class="common-filter">
+						<div class="head">Màu sắc</div>
+						<ul>
+							@foreach (SelectListItem mau in ViewBag.MauList)
+							{
+								<li class="filter-list">
+									
+									<input class="pixel-radio mauInput" type="radio" name="color" style="background-color:@mau.Value"
+									value="@mau.Value">
+									<label>
+										@mau.Text
+									</label>
+								</li>
+							}
+						</ul>
+					</div>
+					<div class="common-filter">
+						<div class="head">Giá</div>
+						<div class="price-range-area">
+							<div id="price-range2"></div>
+							<div class="value-wrapper d-flex">
+								<div class="price">Giá từ:</div>
+								<div id="lower-value2"></div>
+								<span>₫</span>
+								<div class="to"> - </div>
+								<div id="upper-value2"></div>
+								<span>₫</span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-xl-9 col-lg-8 col-md-7">
+			<!-- Start Filter Bar -->
+			<div class="filter-bar d-flex flex-wrap align-items-center">
+				<div class="sorting">
+					<select id="sortGia" name="sortGia">
+						<option value="0">Sắp xếp giá</option>
+						<option value="1">Giá giảm dần</option>
+						<option value="2">Giá tăng dần</option>
+					</select>
+				</div>
+				
+			</div>
+			<!-- End Filter Bar -->
+			<!-- Start Best Seller -->
+
+			<section class="lattest-product-area pb-40 category-list">
+				<div class="row">
+					<partial name="_PartialSanPhamTheoLoai" model="@Model" />
+				</div>
+			</section>
+
+			<!-- End Best Seller -->
+			<!-- Start Filter Bar -->
+			<!-- End Filter Bar -->
+		</div>
+	</div>
+</div>
+
+@await Component.InvokeAsync("BlogLast",new {theloai = "Thumbnail"});
+
+
+

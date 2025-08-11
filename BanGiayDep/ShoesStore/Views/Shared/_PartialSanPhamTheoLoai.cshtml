@@ -1,0 +1,65 @@
+﻿@using ShoesStore.ViewModels;
+@model List<DongsanphamViewModel>
+@if (Model == null || Model.Count==0)
+{
+	<div style="display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%">
+		ShoesShop chưa có giày này
+	</div>
+	
+}
+@foreach (DongsanphamViewModel dongspView in Model)
+{
+	
+	<div class="col-lg-4 col-md-6">
+		@if (dongspView.dongsp.Sanphams == null || !dongspView.dongsp.Sanphams.Any())
+		{
+			<h5>
+				ShoesShop chưa có giày này
+			</h5>
+			continue;
+		}
+		<div class="single-product" onmouseenter="showProductDetails(this)" onmouseleave="showProductDetails(this)">
+			<a asp-action="HienThiSanpham" asp-controller="SanPham" asp-route-masp="@dongspView.dongsp.Sanphams.ElementAt(0).Masp" asp-route-madongsanpham="@dongspView.dongsp.Madongsanpham" class="social-info">
+				<img class="img-fluid" src="~/img/@dongspView.dongsp.Madongsanpham/@dongspView.dongsp.Sanphams.ElementAt(0).Anhdaidien" alt="">
+			</a>
+			<div class="product-details">
+				<h5>@dongspView.dongsp.Tendongsp</h5>
+				<h6 style="color:#6c757d">@dongspView.dongsp.Sanphams.Count() Colors</h6>
+			</div>
+			<div class="product-images row hidden" style="margin-left:auto">
+				@if (dongspView.dongsp.Sanphams == null || dongspView.dongsp.Sanphams.Count ==0 ){
+					<h5>
+						ShoesShop chưa có giày này
+					</h5>
+				}
+				@foreach (Sanpham sp in dongspView.dongsp.Sanphams)
+				{
+					<a asp-controller="SanPham" asp-action="HienThiSanpham" asp-route-madongsanpham="@sp.Madongsanpham" asp-route-masp="@sp.Masp">
+						<img src="~/img/@dongspView.dongsp.Madongsanpham/@sp.Anhdaidien" alt="@dongspView.dongsp.Tendongsp">
+					</a>
+				}
+			</div>
+			<div class="price">
+				@if (dongspView.Phantramgiam != null && dongspView.Phantramgiam != 0)
+				{
+					decimal? priceSale = dongspView.dongsp.Giagoc - (dongspView.dongsp.Giagoc * dongspView.Phantramgiam / 100);
+					<h5>
+						@(priceSale.Value.ToString("#,##0"))₫ &nbsp;<span style="text-decoration:line-through;color:#cccccc">
+							@dongspView.dongsp.Giagoc.ToString("#,##0")₫
+						</span>
+					</h5>
+					<h5 style="color:green;">@dongspView.Phantramgiam% off</h5>
+				}
+				else
+				{
+					<h5>@dongspView.dongsp.Giagoc.ToString("#,##0")₫</h5>
+				}
+
+			</div>
+		</div>
+	</div>
+}

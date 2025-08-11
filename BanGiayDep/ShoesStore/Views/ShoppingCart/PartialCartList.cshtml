@@ -1,0 +1,176 @@
+﻿@using ShoesStore.ViewModels
+@model List<ShoppingCartItem>
+@{
+    decimal TotalCost = 0;
+}
+<div class="table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"><h4>Các sản phẩm</h4></th>
+                <th scope="col" class="text-center"><h4>Số lượng</h4></th>
+                <th scope="col" class="text-center"><h4>Tổng chi phí</h4></th>
+                <th scope="col" class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (ShoppingCartItem cartItem in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="media">
+                            <div class="d-flex">
+                                <a asp-action="HienThiSanpham" asp-controller="Sanpham"
+                                   asp-route-madongsanpham="@cartItem.sanpham.Madongsanpham" asp-route-masp="@cartItem.sanpham.Masp">
+                                    <img class="imageProduct" src="~/img/@cartItem.sanpham.Madongsanpham/@cartItem.sanpham.Anhdaidien" alt="Hinh Anh Giay">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <div>
+                                    <a asp-action="HienThiSanpham" asp-controller="Sanpham"
+                                       asp-route-madongsanpham="@cartItem.sanpham.Madongsanpham" asp-route-masp="@cartItem.sanpham.Masp">
+                                        <h4>Giày @cartItem.Name</h4>
+                                    </a>
+                                </div>
+                                <div>
+                                    <h5>Màu sắc: @cartItem.TenMau</h5>
+                                </div>
+                                <div>
+                                    <h5>Kích thước: @cartItem.Size</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="product_count">
+                            <a  value="@cartItem.sanpham.Masp" class="DecreaseOne" valueSize= "@cartItem.Size"
+                               class="btn btn-light btn-sm">
+                                <i class="bi bi-dash" style="font-size:1.5em"></i>
+                            </a>
+                            <input disabled type="text" maxlength="2" value="@cartItem.Quantity" title="Quantity:" style="max-width:70px;font-size:larger;">
+                            <a value="@cartItem.sanpham.Masp" class="IncreaseOne" valueSize="@cartItem.Size"
+                               onclick="checkOverAmount(@cartItem.Quantity)"
+                               class="btn btn-light btn-sm">
+                                <i class="bi bi-plus" style="font-size:1.5em"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        @{
+                            decimal GiaNotSale = cartItem.GiaGoc * cartItem.Quantity;
+                            decimal priceSale = (cartItem.GiaGoc - (cartItem.GiaGoc * cartItem.PhanTramGiam / 100)) * cartItem.Quantity;
+                        }
+                        @if (cartItem.PhanTramGiam != null && cartItem.PhanTramGiam != 1)
+                        {
+                            TotalCost += priceSale;
+                            <h4>
+                                @(priceSale.ToString("#,##0"))₫ &nbsp;<span style="text-decoration:line-through;color:#cccccc">
+                                    @GiaNotSale.ToString("#,##0")₫
+                                </span>
+                            </h4>
+                        }
+                        else
+                        {
+                            TotalCost += GiaNotSale;
+                            <h4>@GiaNotSale.ToString("#,##0")₫</h4>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-danger btn-sm Delete" value="@cartItem.sanpham.Masp"  valueSize="@cartItem.Size">
+                            <i class="fa fa-trash" style="font-size:1.8em"></i>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+
+
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <h4>Tổng hóa đơn</h4>
+                </td>
+                <td>
+                    <h4>@TotalCost.ToString("#,##0")₫</h4>
+                </td>
+            </tr>
+
+            <tr class="out_button_area">
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="checkout_btn_inner d-flex align-items-center">
+                        <a class="gray_btn"
+                           asp-action="SanPhamTheoLoai" asp-controller="SanPham" asp-route-idType="0">Tiếp tục mua sắm</a>
+                        <a class="primary-btn" asp-action="ThanhToan" asp-controller="PhieuMua">Thanh toán</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+ <script>
+     $(document).ready(function () {
+         $('.DecreaseOne').click(function () {
+             var masp = $(this).attr('value');
+             var masize = $(this).attr('valueSize');
+             $.ajax({
+                url: '/ShoppingCart/DecreaseOne',
+                type:'GET',
+                 data: {
+                    Masp: masp,
+                    size : masize
+                 },
+                 success:function(response){
+                     $('#partialCart').html(response);
+                 }
+             });
+            
+         });
+
+        $('.IncreaseOne').click(function () {
+            var masp = $(this).attr('value');
+            var masize = $(this).attr('valueSize');
+            $.ajax({
+                url: '/ShoppingCart/IncreaseOne',
+                type: 'GET',
+                data: {
+                    Masp: masp,
+                    size: masize
+                },
+                     success: function (response) {
+                    $('#partialCart').html(response);
+                }
+            });
+        });
+
+        $('.Delete').click(function () {
+           let text = "Xác nhận xóa sản phẩm khỏi giỏ hàng?";
+            if (confirm(text) == true) {
+                var masp = $(this).attr('value');
+                var masize = $(this).attr('valueSize');
+                $.ajax({
+                    url: '/ShoppingCart/Delete',
+                    type: 'GET',
+                    data: {
+                        Masp: masp,
+                        tenSize: masize
+                    },
+                    success: function (response) {
+                        $('#partialCart').html(response);
+                    }
+                });
+            } 
+        });
+     });
+ </script>

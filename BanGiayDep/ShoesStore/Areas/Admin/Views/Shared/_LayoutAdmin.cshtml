@@ -1,0 +1,242 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Shoes shop Admin</title>
+    <!-- plugins:css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/LayoutAdmin/assets/vendors/mdi/css/materialdesignicons.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/LayoutAdmin/assets/vendors/css/vendor.bundle.base.css")">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="@Url.Content("~/LayoutAdmin/assets/css/style.css")">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="@Url.Content("~/karma-master/img/logo1.png")"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+    .nav-profile-text {
+        position: relative;
+        margin-top: -85px; /* Điều chỉnh giá trị này để thay đổi khoảng cách */
+    }
+    .dropdown-item {
+        margin-top: -28px; /* Điều chỉnh giá trị này để thay đổi khoảng cách */
+    }
+    @RenderSection("Scripts",required:false)
+</style>
+<script src="https://cdn.tiny.cloud/1/75q8ohjhxw1z3151etmgburtig72ebwwh08iz0x5p89bbbal/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#Noidung',
+            plugins: [
+                'a11ychecker','advlist','advcode','advtable','autolink','checklist','markdown',
+                'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+            ],
+            toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
+                'bullist numlist checklist outdent indent | removeformat | code table help'
+        });
+    </script>
+</head>
+<body>
+   
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <a class="navbar-brand logo_h" asp-controller="HomeAdmin" asp-action="Index"><img src="~/karma-master/img/logo1.png" style="height:80px" alt=""></a>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+
+                @RenderSection("searchArea",required:false)
+                <ul class="navbar-nav navbar-nav-right text-center">
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" asp-controller="AccountAdmin" asp-action="Logout">
+                            <i class="mdi mdi-logout me-2 text-primary"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:../../partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item nav-profile">
+                        <a href="#" class="nav-link">
+                            <div class="nav-profile-image">
+                                <img src="../../LayoutAdmin/assets/images/faces/face26.jpg" alt="profile">
+                                <span class="login-status online"></span>
+                                <!--change to offline or busy as needed-->
+                            </div>
+                            <div class="nav-profile-text d-flex flex-column">
+                                <span class="font-weight-bold mb-2">Chi</span>
+                                <span class="text-secondary text-small">Người quản lý</span>
+                            </div>
+                            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                            <span class="menu-title">Quản lý giày</span>
+                            <i class="menu-arrow"></i>
+                           
+                        </a>
+                        <div class="collapse" id="ui-basic1">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> 
+                                    <a class="nav-link" asp-action="Index" asp-controller="Dongsanpham">
+                                        <span class="menu-title">Giày</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                                </li>
+                                 <li class="nav-item"> 
+                                    <a class="nav-link" asp-action="Index" asp-controller="Mau">
+                                        <span class="menu-title">Màu sắc</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Index" asp-controller="Size">
+                                        <span class="menu-title">Kích cỡ</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Index" asp-controller="Loai">
+                                        <span class="menu-title">Loại giày</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                         <a class="nav-link" asp-action="Index" asp-controller="PhieuMuaAdmin">
+                                        <span class="menu-title">Đơn hàng</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                        
+                    </li>
+                     <li class="nav-item">
+      <a class="nav-link" asp-action="Index" asp-controller="VoucherAdmin">
+                     <span class="menu-title">Mã giảm giá</span>
+                     <i class="mdi mdi-order menu-icon"></i>
+                 </a>
+     
+ </li>
+                    <li class="nav-item">
+                         <a class="nav-link" asp-action="Index" asp-controller="KhuyenMaiAdmin">
+                                        <span class="menu-title">Khuyến mãi</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                    </a>
+                        
+                    </li>
+                    
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("Loaitk") == "2")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic9" aria-expanded="false" aria-controls="ui-basic9">
+                                <span class="menu-title">Quản lý người dùng</span>
+                                <i class="menu-arrow"></i>
+                              
+                            </a>
+                            <div class="collapse" id="ui-basic9">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="ListEmployees" asp-controller="StaffAdmin">
+                                            <span class="menu-title">Nhân Viên</span>
+                                            <i class="mdi mdi-home menu-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="ListCustomers" asp-controller="CustomerAdmin">
+                                            <span class="menu-title">Khách Hàng</span>
+                                            <i class="mdi mdi-home menu-icon"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                      <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                                <span class="menu-title">Quản lý Blog & Banner</span>
+                                <i class="menu-arrow"></i>
+                                
+                            </a>
+                            <div class="collapse" id="ui-basic2">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="ListBlogs" asp-controller="BlogAdmin">
+                                            <span class="menu-title">Blogs</span>
+                                            <i class="mdi mdi-home menu-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="IndexBanner" asp-controller="BannerAdmin">
+                                            <span class="menu-title">Banners</span>
+                                            <i class="mdi mdi-home menu-icon"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                <footer class="footer">
+                    <div class="container-fluid d-flex justify-content-between">
+                        <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ShoesShop 2024</span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../LayoutAdmin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../LayoutAdmin/assets/js/off-canvas.js"></script>
+    <script src="../../LayoutAdmin/assets/js/hoverable-collapse.js"></script>
+    <script src="../../LayoutAdmin/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+</body>
+</html>

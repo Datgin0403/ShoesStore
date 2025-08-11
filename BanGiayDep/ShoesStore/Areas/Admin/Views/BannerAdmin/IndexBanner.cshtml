@@ -1,0 +1,43 @@
+﻿@model List<Banner>
+
+<h2>Banners</h2>
+
+<p>
+    <a asp-action="CreateBanner" class="btn btn-primary">Tạo mới</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Khẩu hiệu</th>
+                <th scope="col">Liên kết</th>
+                <th scope="col">Hoạt động</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var banner in Model)
+            {
+                <tr>
+                    <td>@banner.Mabanner</td>
+                    <td><img src="@Url.Content($"~/img/banner/{banner.Vitri}")" style="width:100px; height:100px;" /></td>
+                    <td>@banner.Slogan</td>
+                    <td>@banner.Link</td>
+                    <td>@(banner.Hoatdong ? "Active" : "Inactive")</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Banner Actions">
+                            <a asp-action="EditBanner" asp-route-id="@banner.Mabanner" class="btn btn-sm btn-primary">Edit</a>
+                            <form asp-action="DeleteBanner" method="post" onsubmit="return confirm('Are you sure you want to delete this banner?');">
+                                <input type="hidden" name="id" value="@banner.Mabanner" />
+                                <button type="submit" class="btn btn-sm btn-danger">Xoá</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

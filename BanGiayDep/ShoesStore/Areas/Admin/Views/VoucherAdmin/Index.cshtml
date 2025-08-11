@@ -1,0 +1,80 @@
+﻿@using ShoesStore.Models
+@model List<Voucher>
+
+@{
+    ViewData["Title"] = "Voucher List Page";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<div class="text-center">
+    <h2 class="display-4">DANH SÁCH VOUCHER</h2>
+</div>
+
+@section searchArea {
+    <form id="searchForm" asp-controller="Voucher" asp-action="Index" method="get" class="d-flex" style="width:468px">
+        <div class="input-group">
+            <input name="searchString" id="searchString" type="search" placeholder="tìm kiếm voucher..." class="form-control rounded" aria-label="Search">
+            <button class="btn btn-info rounded" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+}
+
+<div style="display: flex; justify-content: space-between; align-items: center; width:100%">
+    <a asp-action="Create" asp-controller="VoucherAdmin" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add New</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mã số</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Giá tối thiểu</th>
+                <th scope="col">Giảm giá tối đa</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Ngày hết hạn</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model[i].Mavoucher</td>
+                    <td>@Model[i].Soluong</td>
+                    <td>@Model[i].Giatoithieu.ToString("#,##0"+"đ")</td>
+                    <td>@Model[i].Giamtoida.ToString("#,##0" + "đ")</td>
+                    <td>@Model[i].Ngaytao.ToString("dd/MM/yyyy")</td>
+                    <td>@Model[i].Ngayhethan.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="VoucherAdmin" asp-route-id="@Model[i].Mavoucher" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form asp-controller="VoucherAdmin" asp-action="Delete" asp-route-id="@Model[i].Mavoucher" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    var thongbao = '@TempData["Thanhcong"]';
+    console.log("Test");
+    if (thongbao != "") {
+        console.log("Thanh cong");
+        alert(thongbao);
+    }
+</script>

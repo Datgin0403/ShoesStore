@@ -1,0 +1,144 @@
+﻿@* Giả sử bạn có một Model tên là VnPayResponseModel để chứa dữ liệu trả về *@
+@model ShoesStore.Models.Vnpay.PaymentResponseModel
+@{
+    ViewData["Title"] = "Thanh toán thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Sử dụng layout chung của bạn
+}
+
+<style>
+    .success-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        padding: 2rem 0;
+    }
+
+    .success-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid #e9ecef;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #e8f5e9; /* Light green background */
+        color: #28a745; /* Success green color */
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        font-size: 3rem;
+    }
+
+    .success-card h1 {
+        color: #343a40;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .success-card p {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .transaction-details {
+        text-align: left;
+        margin-bottom: 2rem;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+
+    .transaction-details .list-group-item {
+        background-color: transparent;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .transaction-details .list-group-item:last-child {
+        border-bottom: none;
+    }
+
+    .transaction-details strong {
+        color: #495057;
+    }
+
+    .btn-continue-shopping {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-continue-shopping:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check"></i> <!-- Bạn cần có Font Awesome, hoặc thay bằng SVG/ảnh -->
+        </div>
+
+        <h1>Thanh Toán Thành Công!</h1>
+        <p>Cảm ơn bạn đã mua hàng tại ShoesStore. Đơn hàng của bạn đã được xác nhận.</p>
+
+        @if (Model != null && Model.Success)
+        {
+            <div class="transaction-details">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Mã giao dịch:</strong>
+                        <span>@Model.TransactionId</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Số tiền:</strong>
+                        @if(Model.Amount.HasValue)
+                        {
+                            <span>@Model.Amount.Value.ToString("N0") VNĐ</span>
+
+                        }
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Nội dung:</strong>
+                        <span>@Model.OrderDescription</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Mã VNPAY:</strong>
+                        <span class="badge bg-success">@Model.VnPayResponseCode</span>
+                    </li>
+                </ul>
+            </div>
+        }
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-continue-shopping">
+            <i class="fas fa-arrow-left me-2"></i> Tiếp Tục Mua Sắm
+        </a>
+    </div>
+</div>
+
+@* Để sử dụng icon <i class="fas fa-check"></i>, bạn cần thêm link Font Awesome vào file _Layout.cshtml *@
+@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> *@

@@ -1,0 +1,46 @@
+﻿@model ShoesStore.Models.Khuyenmai
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Tạo Khuyến Mãi Mới</h4>
+
+            <form asp-action="Create" method="post" id="createForm">
+                <div class="form-group">
+                    <label asp-for="Ngaybd">Ngày bắt đầu</label>
+                    <input asp-for="Ngaybd" class="form-control" type="date" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ngaykt">Ngày kết thúc</label>
+                    <input asp-for="Ngaykt" class="form-control" type="date" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phantramgiam">Phần trăm giảm</label>
+                    <input asp-for="Phantramgiam" class="form-control" type="number"/>
+                </div>
+                <!-- Button type="submit" đã được di chuyển ra ngoài form -->
+                <button type="submit" class="btn btn-gradient-primary me-2">Tạo mới</button>
+                <a href="@Url.Action("Index", "KhuyenMaiAdmin")" class="btn btn-light">Hủy bỏ</a>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#createForm').submit(function (e) {
+            var ngayBd = new Date($('#Ngaybd').val());
+            var ngayKt = new Date($('#Ngaykt').val());
+
+            // Kiểm tra nếu ngày kết thúc trước ngày bắt đầu
+            if (ngayKt < ngayBd) {
+                e.preventDefault(); // Ngăn không cho form submit
+                alert('The end date must be after or the same as the start date.');
+            }
+        });
+    });
+</script>

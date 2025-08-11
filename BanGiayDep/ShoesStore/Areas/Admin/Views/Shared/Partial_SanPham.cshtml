@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShoesStore.Models.Chitietphieumua>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="path/to/font-awesome/css/all.min.css" />
+<div class="text-center">
+    <h4 class="display-4">DANH SÁCH CHI TIẾT GIÀY</h4>
+</div>
+@* @{
+    // Debug: In ra số lượng phần tử trong Model
+    var itemCount = Model?.Count() ?? 0;
+    <p>Count: @itemCount</p>
+}
+ *@
+@if (Model != null && Model.Any())
+{
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên giày</th>
+                <th>Kích cỡ</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Trị giá</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>                   
+                        <td>
+                            @* @item.MaspsizeNavigation.MaspNavigation.MadongsanphamNavigation.Tendongsp *@
+                        </td>
+                        <td>
+                            @* @item.MaspsizeNavigation.MasizeNavigation.Tensize *@
+                        </td>
+                        <td>@String.Format("{0:#,##0}", item.Dongia)₫</td>
+                        <td>@item.Soluong</td>
+                        <td>@String.Format("{0:#,##0}", item.Dongia * item.Soluong)₫</td>
+                    </tr>
+                }
+
+        </tbody>
+    </table>
+</div>
+ 
+    <a href="@Url.Action("Index", "PhieuMuaAdmin")" class="btn btn-light">Quay Về</a>
+}

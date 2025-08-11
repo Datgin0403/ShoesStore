@@ -1,0 +1,108 @@
+﻿@model ShoesStore.Models.Khachhang
+
+<div class="col-lg-12">
+    <div id="partialInfo">
+    <partial name="PartialViewProfileInfo" model="Model" />
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="genric-btn info radius" id="openModalEdit" data-toggle="modal" data-target="#exampleModal">
+        Sửa hồ sơ
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa hồ sơ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="tenkh">Tên đăng nhập</label>
+                            <input type="text" class="form-control" id="tenkh" name="Tenkh" value="@Model.Tenkh" >
+                            <span class="text-danger" id="hotenInput"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="sdt">Số điện thoại</label>
+                            <input type="text" class="form-control" id="sdt" name="Sdt" value="@Model.Sdt" >
+                        <span class="text-danger" id="PhoneInput"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gioitinh">Giới tính</label>
+                            <select id="gioitinh" name="Gioitinh" class="form-select" asp-for="@Model.Gioitinh">
+                                <option value="true">Nam</option>
+                                <option value="false">Nữ</option>
+                            </select>
+                        <span class="text-danger" id="GenderInput"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ngaysinh">Birth</label>
+                            <input type="date" class="form-control" id="ngaysinh" name="Ngaysinh" value="@Model.Ngaysinh?.ToString("yyyy-MM-dd")" placeholder="Ngày sinh">
+                        <span class="text-danger" id="BirthInput"></span>
+                        </div>
+                    <button type="submit" class="genric-btn primary radius" id="updateButton">Cập nhật</button>
+                    <button type="button" class="genric-btn default radius" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function () {
+            $('#openModalEdit').click(function () {
+                $('#hotenInput').text("");
+                $('#PhoneInput').text("");
+                $('#GenderInput').text("");
+                $('#BirthInput').text("");
+            });
+
+            $("#updateButton").click(function () {
+                console.log("Get in button");
+                var check = true;
+                var tenkhView = $('#tenkh').val();
+                if(tenkhView == ""){
+                    $('#hotenInput').text("Vui lòng nhập họ tên");
+                    check = false;
+                }
+
+                var sdtview = $('#sdt').val();
+                if (sdtview == "") {
+                    $('#PhoneInput').text("Vui lòng nhập số điện thoại");
+                    check = false;
+                }
+            var gioitinhview = $("#gioitinh").find(":selected").val();
+            if (gioitinhview == "") {
+                $('#GenderInput').text("Vui lòng chọn giới tính");
+                    check = false;
+                }
+
+                var ngaysinhview = $('#ngaysinh').val();
+            if (ngaysinhview == "") {
+                $('#BirthInput').text("Chọn ngày sinh bạn nha");
+                    check = false;
+                }
+
+                if (check) {
+                $.ajax({
+                    url: '/Account/ChangeProfileUpdate',
+                    type: 'GET',
+                    data: {
+                        tenkh: tenkhView,
+                        sdt: sdtview,
+                        gioitinh: gioitinhview,
+                        ngaysinh: ngaysinhview
+                    },
+                    success: function (data) {
+                        $('#partialInfo').html(data);
+                        $('#exampleModal').modal('hide');
+                    }
+                });
+                }
+               
+            });
+        });
+    </script>
